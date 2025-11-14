@@ -1,1 +1,3 @@
-A version of ez-sprites for Java
+# ez-sprites-java
+
+A version of ez-sprites for Java with a Pong demo
