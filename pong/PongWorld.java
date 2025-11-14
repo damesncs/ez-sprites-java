@@ -21,7 +21,9 @@ public class PongWorld extends World implements KeyListener {
     public PongWorld(int width, int height){
         super(width, height);
         
-        ball = new CircleSprite(getWorldWidth() / 2, getWorldHeight() / 2, 15, Color.RED);
+        int ballInitialX = getWorldWidth() / 2;
+        int ballInitialY = getWorldHeight() / 2;
+        ball = new CircleSprite(ballInitialX, ballInitialY, 15, Color.RED);
         ball.setDX(BALL_SPEED);
         ball.setDY(BALL_SPEED);
         addSprite(ball);
@@ -29,7 +31,8 @@ public class PongWorld extends World implements KeyListener {
         leftPaddle = new RectangleSprite(0, 0, 20, 100, Color.BLUE);
         addSprite(leftPaddle);
 
-        rightPaddle = new RectangleSprite(getWorldWidth() - 20, 0, 20, 100, Color.BLUE);
+        int rightPaddleInitialX = getWorldWidth() - 20;
+        rightPaddle = new RectangleSprite(rightPaddleInitialX, 0, 20, 100, Color.BLUE);
         addSprite(rightPaddle);
         
     }
