@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 
 import core.CircleSprite;
 import core.RectangleSprite;
+import core.TextSprite;
 import core.World;
 
 public class PongWorld extends World implements KeyListener {
@@ -17,6 +18,13 @@ public class PongWorld extends World implements KeyListener {
 
     private RectangleSprite leftPaddle;
     private RectangleSprite rightPaddle;
+
+    private TextSprite leftScore;
+    private TextSprite rightScore;
+
+    // TODO you might want these to store player scores
+    // private int leftPlayerScore = 0;
+    // private int rightPlayerScore = 0;
 
     public PongWorld(int width, int height){
         super(width, height);
@@ -35,12 +43,20 @@ public class PongWorld extends World implements KeyListener {
         rightPaddle = new RectangleSprite(rightPaddleInitialX, 0, 20, 100, Color.BLUE);
         addSprite(rightPaddle);
         
+        int scoresY = getWorldHeight() / 4;
+        int scoreXInset = getWorldWidth() / 4;
+
+        leftScore = new TextSprite(scoreXInset, scoresY, 100, 30, "test");
+        addSprite(leftScore);
+
+        rightScore = new TextSprite(getWorldWidth() - scoreXInset, scoresY, 100, 30, "test");
+        addSprite(rightScore);
     }
 
     public void updateSprites(){
         detectWallCollisions();
         detectPaddleCollisions();
-        
+
         super.updateSprites(); // this advances all sprite positions one frame
     }
 
@@ -50,8 +66,10 @@ public class PongWorld extends World implements KeyListener {
     private void detectWallCollisions(){
         if(ball.getRightEdge() > getWorldWidth()){
             bounceBallX();
+            // TODO instead of bouncing, give a point to left player and update scoreboard
         } else if(ball.getLeftEdge() < 0){
             bounceBallX();
+            // TODO instead of bouncing, give a point to right player and update scoreboard
         }
 
         if(ball.getBottomEdge() > getWorldHeight()){
@@ -62,10 +80,11 @@ public class PongWorld extends World implements KeyListener {
     }
 
     /** Checks the positions of the paddles and the ball to determine if the ball
-     * is colliding with either paddle, and updates the ball's DX and DY 
+     * is colliding with either paddle, and updates the ball's DX accordingly
+     * by calling `bounceBallX`
      */
     private void detectPaddleCollisions(){
-        // TODO implement
+        // TODO implement this method
     }
 
     private void bounceBallX(){
