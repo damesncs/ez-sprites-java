@@ -15,10 +15,11 @@ public class World {
         this.sprites = new ArrayList<Sprite>();
     }
 
+    /** Advances the positions of all sprites by applying their dx and dy fields to the x and y coordinates */
     public void updateSprites(){
         for(Sprite s : sprites){
-            s.x += s.dx;
-            s.y += s.dy;
+            s.setX(s.getX() + s.getDX());
+            s.setY(s.getY() + s.getDY());
         }
     }
 

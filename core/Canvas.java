@@ -30,7 +30,6 @@ public class Canvas extends JPanel {
         return new Dimension(width, height);
     }
 
-
     public void paintComponent(Graphics g) {
         super.paintComponent(g);       
 

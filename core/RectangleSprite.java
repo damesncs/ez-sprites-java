@@ -5,9 +5,9 @@ import java.awt.Graphics;
 /** A rectangle sprite whose top left corner is at (x,y) with given width and height */
 public class RectangleSprite extends Sprite {
     
-    public int width;
-    public int height;
-    public Color color;
+    private int width;
+    private int height;
+    private Color color;
 
     public RectangleSprite(int x, int y, int width, int height, Color color){
         super(x, y);
@@ -18,7 +18,31 @@ public class RectangleSprite extends Sprite {
 
     public void draw(Graphics g){
         g.setColor(color);
-        g.fillRect(x, y, width, height);
+        g.fillRect(getX(), getY(), width, height);
+    }
+
+    public int getWidth(){
+        return width;
+    }
+
+    public int getHeight(){
+        return height;
+    }
+
+    public int getRightEdge(){
+        return getX() + width;
+    }
+
+    public int getLeftEdge(){
+        return getX();
+    }
+
+    public int getTopEdge(){
+        return getY();
+    }
+
+    public int getBottomEdge(){
+        return getY() + height;
     }
 
 }

@@ -9,7 +9,7 @@ import core.TimerListener;
 import core.World;
 
 public class Pong {
-    public static final int CANVAS_WIDTH = 500;
+    public static final int CANVAS_WIDTH = 700;
     public static final int CANVAS_HEIGHT = 500;
 
     private static final int FRAME_DELAY_MS = 15;
@@ -29,9 +29,12 @@ public class Pong {
         frame.add(canvas);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setFocusable(true);
         frame.setVisible(true);
 
         PongWorld world = new PongWorld(CANVAS_WIDTH, CANVAS_HEIGHT);
+        frame.addKeyListener(world);
+
         startAnimationLoop(world, canvas);
     }
 
