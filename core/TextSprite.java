@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+/** A sprite whose main purpose is to display text (e.g., a scoreboard) */
 public class TextSprite extends RectangleSprite {
     
     private String text;
@@ -27,10 +28,12 @@ public class TextSprite extends RectangleSprite {
         this.font = font;
     }
 
-    public void setDrawBox(boolean drawBox) {
-        this.drawBox = drawBox;
+    /** Controls whether the bounding box of the sprite should be filled or transparent */
+    public void setDrawBkgd(boolean drawBkgd) {
+        this.drawBox = drawBkgd;
     }
 
+    /** Sets the color of the filled bounding box, if it is drawn */
     public void setBkgd(Color bkgd) {
         this.bkgd = bkgd;
     }

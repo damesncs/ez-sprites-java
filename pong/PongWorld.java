@@ -53,6 +53,11 @@ public class PongWorld extends World implements KeyListener {
         addSprite(rightScore);
     }
 
+    /** This method is called by the `TimerListener` for every frame.
+     *  It updates the game state by:
+     *  1. checking for collisions and handling them.
+     *  2. moving all sprites by applying their dx and dy (this is done by the superclass's method)
+     */
     public void updateSprites(){
         detectWallCollisions();
         detectPaddleCollisions();
@@ -87,10 +92,12 @@ public class PongWorld extends World implements KeyListener {
         // TODO implement this method
     }
 
+    /** Inverts the movement of the ball on the x axis ("flip dx")*/
     private void bounceBallX(){
         ball.setDX(-ball.getDX());
     }
 
+    /** Inverts the movement of the ball on the y axis ("flip dy")*/
     private void bounceBallY(){
         ball.setDY(-ball.getDY());
     }
@@ -106,7 +113,7 @@ public class PongWorld extends World implements KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_DOWN){
             rightPaddle.setDY(PADDLE_SPEED);
         }
-        // TODO add handling for left paddle controls here
+        // TODO add handling for left paddle controls here (W and S keys)
     }
 
     public void keyReleased(KeyEvent e) {
@@ -116,7 +123,7 @@ public class PongWorld extends World implements KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_DOWN){
             rightPaddle.setDY(0);
         }
-        // TODO add handling for left paddle controls here
+        // TODO add handling for left paddle controls here (W and S keys)
     }
 
 }
