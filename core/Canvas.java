@@ -1,17 +1,23 @@
+package core;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
-public class EZCanvas extends JPanel {
+public class Canvas extends JPanel {
     
     private int width;
     private int height;
 
-    public EZCanvas(int width, int height) {
+    private ArrayList<Sprite> sprites;
+
+    public Canvas(int width, int height) {
         this.width = width;
         this.height = height;
+        this.sprites = new ArrayList<>();
         setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
@@ -22,7 +28,16 @@ public class EZCanvas extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);       
 
-        // do drawing here with g
-        
-    }  
+        for(Sprite s : sprites){
+            // advance sprite movement one frame
+            s.x += s.dx;
+            s.y += s.dy;
+            // draw sprite
+            s.draw(g);
+        }
+    }
+
+    public void addSprite(Sprite s){
+        sprites.add(s);
+    }
 }
