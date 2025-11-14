@@ -1,0 +1,1 @@
+A version of ez-sprites for Java
