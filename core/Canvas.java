@@ -18,26 +18,24 @@ public class Canvas extends JPanel {
         this.width = width;
         this.height = height;
         this.sprites = new ArrayList<>();
+        setMinimumSize(new Dimension(width, height));
         setBorder(BorderFactory.createLineBorder(Color.black));
+    }
+
+    public void setSprites(ArrayList<Sprite> list){
+        sprites = list;
     }
 
     public Dimension getPreferredSize() {
         return new Dimension(width, height);
     }
 
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);       
 
         for(Sprite s : sprites){
-            // advance sprite movement one frame
-            s.x += s.dx;
-            s.y += s.dy;
-            // draw sprite
             s.draw(g);
         }
-    }
-
-    public void addSprite(Sprite s){
-        sprites.add(s);
     }
 }

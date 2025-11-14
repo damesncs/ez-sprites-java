@@ -2,6 +2,7 @@ package core;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/** A circle sprite whose center is at (x,y) with given radius */
 public class CircleSprite extends Sprite {
     
     public int radius;
@@ -15,6 +16,6 @@ public class CircleSprite extends Sprite {
 
     public void draw(Graphics g){
         g.setColor(color);
-        g.fillArc(x, y, radius, radius, 0, 360);
+        g.fillOval(x - radius, y - radius, radius * 2, radius * 2);
     }
 }

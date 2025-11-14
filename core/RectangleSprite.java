@@ -2,6 +2,7 @@ package core;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/** A rectangle sprite whose top left corner is at (x,y) with given width and height */
 public class RectangleSprite extends Sprite {
     
     public int width;
