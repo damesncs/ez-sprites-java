@@ -106,6 +106,7 @@ public class PongWorld extends World implements KeyListener {
         // do nothing
     }
 
+    /** called when any key is pressed */
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_UP){
             rightPaddle.setDY(-PADDLE_SPEED);
@@ -116,6 +117,7 @@ public class PongWorld extends World implements KeyListener {
         // TODO add handling for left paddle controls here (W and S keys)
     }
 
+    /** called when any key is released after being pressed */
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_UP){
             rightPaddle.setDY(0);

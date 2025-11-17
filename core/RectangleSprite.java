@@ -6,6 +6,7 @@ import java.awt.Graphics;
 public class RectangleSprite extends Sprite {
     
     private int width;
+
     private int height;
     private Color color;
 
@@ -27,6 +28,18 @@ public class RectangleSprite extends Sprite {
 
     public int getHeight(){
         return height;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height){
+        this.height = height;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public int getRightEdge(){

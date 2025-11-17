@@ -9,6 +9,7 @@ public class Sprite {
     private int dx;
     private int dy;
 
+    /** Creates a sprite with x, y, dx, and dy set to zero */
     public Sprite(){
         this.x = 0;
         this.y = 0;
@@ -16,6 +17,7 @@ public class Sprite {
         this.dy = 0;
     }
 
+    /** Creates a sprite with the given initial values for x and y, and with dx and dy set to 0 */
     public Sprite(int x, int y){
         this.x = x;
         this.y = y;
@@ -23,6 +25,7 @@ public class Sprite {
         this.dy = 0;
     }
 
+    /** Creates a sprite with the given initial values for x, y, dx, and dy */
     public Sprite(int x, int y, int dx, int dy){
         this.x = x;
         this.y = y;
@@ -30,22 +33,29 @@ public class Sprite {
         this.dy = dy;
     }
 
+    /** Draws the sprite using the given Graphics object. 
+     * This is called by Canvas to draw the sprite on each iteration of the animation loop (each "frame").
+     * Subclasses should override this. */
     public void draw(Graphics g){
         return;
     }
 
+    /** Subclasses should override this to return the rightmost extent of the sprite for basic collision checking */
     public int getRightEdge(){
         return 0;
     }
 
+    /** Subclasses should override this to return the leftmost extent of the sprite for basic collision checking */
     public int getLeftEdge(){
         return 0;
     }
 
+    /** Subclasses should override this to return the topmost extent of the sprite for basic collision checking */
     public int getTopEdge(){
         return 0;
     }
 
+    /** Subclasses should override this to return the bottommost extent of the sprite for basic collision checking */
     public int getBottomEdge(){
         return 0;
     }

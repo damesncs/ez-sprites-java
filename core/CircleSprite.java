@@ -23,6 +23,14 @@ public class CircleSprite extends Sprite {
         return radius;
     }
 
+    public void setRadius(int radius){
+        this.radius = radius;
+    }
+
+    public void setColor(Color color){
+        this.color = color;
+    }
+
     public int getRightEdge(){
         return getX() + radius;
     }
