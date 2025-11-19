@@ -35,11 +35,11 @@ public class World {
         return sprites;
     }
 
-    protected int getWorldWidth(){
+    public int getWorldWidth(){
         return width;
     }
 
-    protected int getWorldHeight(){
+    public int getWorldHeight(){
         return height;
     }
 
