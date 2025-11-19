@@ -7,6 +7,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+/** A graphical canvas on which Sprite objects are drawn.
+ * The coordinate system of the canvas has its origin (0,0) in the top left corner.
+ * x values increase from left to right, and y values increase from top to bottom.
+ */
 public class Canvas extends JPanel {
     
     private int width;

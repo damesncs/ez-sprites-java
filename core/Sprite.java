@@ -3,10 +3,27 @@ import java.awt.Graphics;
 
 public class Sprite {
     
+    /** x-coordinate for this sprite. 
+     * Subclasses determine how the actual shape is drawn
+     * in relation to this point.
+     *  */
     private int x;
-    private int y;
 
+    /** y-coordinate for this sprite.
+     * Subclasses determine how the actual shape is drawn
+     * in relation to this point.
+    */
+    private int y; 
+
+    /** The number of pixels this Sprite will move each frame on the x-axis.
+     *  Positive dx values will move the sprite to the right,
+     *  while negative values will move the sprite to the left. */
     private int dx;
+
+    /** The number of pixels this Sprite will move each frame on the y-axis.
+     *  Positive dy values will move the sprite down (towards the bottom of the canvas),
+     *  while negative values will move the sprite up (towards the top of the canvas).
+    */
     private int dy;
 
     /** Creates a sprite with x, y, dx, and dy set to zero */
