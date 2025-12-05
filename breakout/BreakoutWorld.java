@@ -1,5 +1,7 @@
 package breakout;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -36,7 +38,7 @@ public class BreakoutWorld extends World implements KeyListener {
         
         int ballInitialX = getWorldWidth() / 2;
         int ballInitialY = getWorldHeight() / 2;
-        ball = new CircleSprite(ballInitialX, ballInitialY, 15, Color.RED);
+        ball = new CircleSprite(ballInitialX, ballInitialY + 10, 15, Color.RED);
         ball.setDX(BALL_SPEED);
         ball.setDY(BALL_SPEED);
         addSprite(ball);
@@ -56,6 +58,7 @@ public class BreakoutWorld extends World implements KeyListener {
             boxHeight -= 30;
             
         }
+        
 
       
     }
@@ -69,11 +72,19 @@ public class BreakoutWorld extends World implements KeyListener {
     
 
     public void updateSprites(){
+        ArrayList<RectangleSprite> toRemove = new ArrayList<RectangleSprite>();
+
         detectWallCollisions();
         detectPaddleCollisions();
-        boxes.forEach(box -> detectBoxCollisions(ball, box));
-        
 
+        for(RectangleSprite brick:boxes){
+           boolean shouldRemove = detectBoxCollisions(ball, brick);
+           if(shouldRemove){
+            toRemove.add(brick);
+           }
+        }
+        boxes.removeAll(toRemove);
+       removeSprites(toRemove);
         super.updateSprites(); // this advances all sprite positions one frame
     }
 
@@ -115,17 +126,23 @@ public class BreakoutWorld extends World implements KeyListener {
 
     }
 
-    private void detectBoxCollisions(CircleSprite ball, RectangleSprite box){
-            System.out.println("boxHit");
-            if(circleRectangleTopEdgeAreColliding( ball,  box) ||
+    private boolean detectBoxCollisions(CircleSprite ball, RectangleSprite box){
+        if(circleRectangleTopEdgeAreColliding( ball,  box) ||
             circleRectangleBottomEdgeAreColliding(ball, box)){
-        boxes.remove(box);
-        ball.getDY() = -ball.getDY();
-    } else if(circleRectangleRightEdgeAreColliding(ball, brick) || 
-                circleRectangleLeftEdgeAreColliding(ball, brick)){
-        deleteBrick(brick);
-        ball.dx = -ball.dx;
+            
+            
+            ball.setDY(-ball.getDY());
+            return true;
+            
+    } else if(circleRectangleRightEdgeAreColliding(ball, box) || 
+            circleRectangleLeftEdgeAreColliding(ball, box)){
+        
+            
+            boxes.remove(box);
+            ball.setDX(-ball.getDX());
+            return true;
     } 
+    return false;
     }
 
     private boolean checkDistanceToPointLessThanRadius(CircleSprite c, int testX, int testY){
