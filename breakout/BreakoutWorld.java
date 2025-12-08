@@ -93,7 +93,9 @@ public class BreakoutWorld extends World implements KeyListener {
      * by calling `bounceBallX`
      */
     private void detectPaddleCollisions(){
-        if(ball.getRightEdge() > bottomPaddle.getLeftEdge() && ball.getLeftEdge() < bottomPaddle.getRightEdge() && ball.getBottomEdge() > getWorldHeight() - bottomPaddle.getHeight()){
+        if(ball.getRightEdge() > bottomPaddle.getLeftEdge() 
+        && ball.getLeftEdge() < bottomPaddle.getRightEdge() 
+        && ball.getBottomEdge() > getWorldHeight() - bottomPaddle.getHeight()){
             bounceBallY();
         } 
     }
