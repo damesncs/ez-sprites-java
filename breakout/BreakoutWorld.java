@@ -1,7 +1,5 @@
 package breakout;
 import java.util.ArrayList;
-import java.util.Iterator;
-
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -9,7 +7,6 @@ import java.awt.event.KeyListener;
 
 import core.CircleSprite;
 import core.RectangleSprite;
-import core.TextSprite;
 import core.World;
 
 public class BreakoutWorld extends World implements KeyListener {
@@ -20,47 +17,34 @@ public class BreakoutWorld extends World implements KeyListener {
     private static final int ROWS_OF_BOXES = 4;
     private static final int BOXWIDTH = 100;
     private static final int BOXHEIGHT = 20;
-    private int boxHeight = getWorldHeight()/2 -30;
+    private int boxHeight = getWorldHeight()/2 -50;
     ArrayList<RectangleSprite> boxes = new ArrayList<>();
 
     private CircleSprite ball;
 
     private RectangleSprite bottomPaddle;
 
-     
-
-    // TODO you might want these to store player scores
-    // private int leftPlayerScore = 0;
-    // private int rightPlayerScore = 0;
-
     public BreakoutWorld(int width, int height){
         super(width, height);
-        
+
         int ballInitialX = getWorldWidth() / 2;
         int ballInitialY = getWorldHeight() / 2;
         ball = new CircleSprite(ballInitialX, ballInitialY + 10, 15, Color.RED);
-        ball.setDX(BALL_SPEED);
+        ball.setDX(BALL_SPEED );
         ball.setDY(BALL_SPEED);
         addSprite(ball);
 
         bottomPaddle = new RectangleSprite(getWorldWidth()/2, getWorldHeight() - 20, 100, 20, Color.BLUE);
         addSprite(bottomPaddle);
 
-
-
         for(int i = 0; i < ROWS_OF_BOXES; i ++){
-
             for(int e = 0; e < COLS_OF_BOXES; e++){
                 RectangleSprite box = new RectangleSprite((getWorldWidth()/COLS_OF_BOXES * e) + (getWorldHeight()/COLS_OF_BOXES)/COLS_OF_BOXES ,boxHeight, BOXWIDTH, BOXHEIGHT, Color.BLACK);
                 addSprite(box);
                 boxes.add(box);
             }
             boxHeight -= 30;
-            
         }
-        
-
-      
     }
 
     /** This method is called by the `TimerListener` for every frame.
@@ -88,16 +72,11 @@ public class BreakoutWorld extends World implements KeyListener {
         super.updateSprites(); // this advances all sprite positions one frame
     }
 
-    /** Checks if the ball is colliding with any of the four walls, and if it is,
-     *  updates the ball's DX and DY to "bounce"
-     */
     private void detectWallCollisions(){
          if(ball.getRightEdge() > getWorldWidth()){
             bounceBallX();
-            // TODO instead of bouncing, give a point to left player and update scoreboard
         } else if(ball.getLeftEdge() < 0){
             bounceBallX();
-            // TODO instead of bouncing, give a point to right player and update scoreboard
         }
 
         if(ball.getBottomEdge()-5 > getWorldHeight()){
@@ -114,35 +93,27 @@ public class BreakoutWorld extends World implements KeyListener {
      * by calling `bounceBallX`
      */
     private void detectPaddleCollisions(){
-       // System.out.println(ball.getRightEdge());
-        
-        
-        
         if(ball.getRightEdge() > bottomPaddle.getLeftEdge() && ball.getLeftEdge() < bottomPaddle.getRightEdge() && ball.getBottomEdge() > getWorldHeight() ){
-            
-            System.out.println("hit paddle");
             bounceBallY();
         } 
-
     }
 
     private boolean detectBoxCollisions(CircleSprite ball, RectangleSprite box){
         if(circleRectangleTopEdgeAreColliding( ball,  box) ||
             circleRectangleBottomEdgeAreColliding(ball, box)){
-            
-            
             ball.setDY(-ball.getDY());
             return true;
-            
-    } else if(circleRectangleRightEdgeAreColliding(ball, box) || 
+
+        } else if(circleRectangleRightEdgeAreColliding(ball, box) || 
             circleRectangleLeftEdgeAreColliding(ball, box)){
-        
-            
             boxes.remove(box);
             ball.setDX(-ball.getDX());
             return true;
+
     } 
+
     return false;
+
     }
 
     private boolean checkDistanceToPointLessThanRadius(CircleSprite c, int testX, int testY){
@@ -201,7 +172,7 @@ public class BreakoutWorld extends World implements KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_RIGHT){
             bottomPaddle.setDX(PADDLE_SPEED);
         }
-        // TODO add handling for left paddle controls here (W and S keys)
+        
     }
 
     public void keyReleased(KeyEvent e) {
@@ -211,7 +182,7 @@ public class BreakoutWorld extends World implements KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_RIGHT){
             bottomPaddle.setDX(0);
         }
-        // TODO add handling for left paddle controls here (W and S keys)
+        
     }
 
 }
