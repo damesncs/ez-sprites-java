@@ -45,9 +45,4 @@ public class RectangleSprite extends Sprite {
         return getY() + height;
     }
 
-    public void removeIf(boolean detectBoxCollisions) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeIf'");
-    }
-
 }
