@@ -68,7 +68,7 @@ public class BreakoutWorld extends World implements KeyListener {
            }
         }
         boxes.removeAll(toRemove);
-       removeSprites(toRemove);
+        removeSprites(toRemove);
         super.updateSprites(); // this advances all sprite positions one frame
     }
 
@@ -93,7 +93,7 @@ public class BreakoutWorld extends World implements KeyListener {
      * by calling `bounceBallX`
      */
     private void detectPaddleCollisions(){
-        if(ball.getRightEdge() > bottomPaddle.getLeftEdge() && ball.getLeftEdge() < bottomPaddle.getRightEdge() && ball.getBottomEdge() > getWorldHeight() ){
+        if(ball.getRightEdge() > bottomPaddle.getLeftEdge() && ball.getLeftEdge() < bottomPaddle.getRightEdge() && ball.getBottomEdge() > getWorldHeight() - bottomPaddle.getHeight()){
             bounceBallY();
         } 
     }
@@ -106,7 +106,6 @@ public class BreakoutWorld extends World implements KeyListener {
 
         } else if(circleRectangleRightEdgeAreColliding(ball, box) || 
             circleRectangleLeftEdgeAreColliding(ball, box)){
-            boxes.remove(box);
             ball.setDX(-ball.getDX());
             return true;
 
