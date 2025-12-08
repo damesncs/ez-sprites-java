@@ -31,6 +31,10 @@ public class World {
         sprites.remove(s);
     }
 
+    protected void removeSprites(ArrayList<?extends Sprite> s){
+        sprites.removeAll(s);
+    }
+
     public ArrayList<Sprite> getSprites(){
         return sprites;
     }
