@@ -23,7 +23,7 @@ public class Breakout {
     }
     
     private static void createAndShowGUI() {
-        JFrame frame = new JFrame("Pong");
+        JFrame frame = new JFrame("Breakout");
         Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
         
         frame.add(canvas);

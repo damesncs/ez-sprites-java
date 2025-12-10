@@ -31,7 +31,7 @@ public class BreakoutWorld extends World implements KeyListener {
         int ballInitialX = getWorldWidth() / 2;
         int ballInitialY = getWorldHeight() / 2;
         ball = new CircleSprite(ballInitialX, ballInitialY + 10, 15, Color.RED);
-        ball.setDX(BALL_SPEED );
+        ball.setDX(BALL_SPEED);
         ball.setDY(BALL_SPEED);
         addSprite(ball);
 
@@ -59,7 +59,7 @@ public class BreakoutWorld extends World implements KeyListener {
         detectWallCollisions();
         detectPaddleCollisions();
 
-        for(RectangleSprite brick:boxes){
+        for(RectangleSprite brick : boxes){
            boolean shouldRemove = detectBoxCollisions(ball, brick);
            if(shouldRemove){
             toRemove.add(brick);
