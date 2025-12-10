@@ -19,7 +19,7 @@ public class BreakoutWorld extends World implements KeyListener {
     private static final int BRICK_HEIGHT = 20;
     private static final int COL_MARGIN = 15;
     
-    ArrayList<RectangleSprite> boxes = new ArrayList<>();
+    ArrayList<RectangleSprite> bricks = new ArrayList<>();
 
     private CircleSprite ball;
 
@@ -45,6 +45,10 @@ public class BreakoutWorld extends World implements KeyListener {
         // 2. The bricks must all have the same dimensions (use the constants above).
         // 3. The columns of bricks should be separated by a constant margin (COL_MARGIN)
         // 4. The rows of bricks should be separated by a margin of one brick-height (BRICK_HEIGHT)
+        // 5. To add a brick:
+        //      a. instantiate a new RectangleSprite object 
+        //      b. add to the canvas by calling addSprite(newBrickSprite)
+        //      c. add it to the ArrayList of RectangleSprites named `bricks` by calling bricks.add(newBrickSprite)
 
     }
 
@@ -59,13 +63,13 @@ public class BreakoutWorld extends World implements KeyListener {
         detectWallCollisions();
         detectPaddleCollisions();
 
-        for(RectangleSprite brick : boxes){
+        for(RectangleSprite brick : bricks){
            boolean shouldRemove = detectBoxCollisions(ball, brick);
            if(shouldRemove){
             toRemove.add(brick);
            }
         }
-        boxes.removeAll(toRemove);
+        bricks.removeAll(toRemove);
         removeSprites(toRemove);
         super.updateSprites(); // this advances all sprite positions one frame
     }
