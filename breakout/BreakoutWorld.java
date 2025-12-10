@@ -13,11 +13,12 @@ public class BreakoutWorld extends World implements KeyListener {
     private static final int BALL_SPEED = 4;
     private static final int PADDLE_SPEED = 6;
 
-    private static final int COLS_OF_BOXES = 6;
-    private static final int ROWS_OF_BOXES = 4;
-    private static final int BOXWIDTH = 100;
-    private static final int BOXHEIGHT = 20;
-    private int boxHeight = getWorldHeight()/2 -50;
+    private static final int COLS_OF_BRICKS = 6;
+    private static final int ROWS_OF_BRICKS = 4;
+    private static final int BRICK_WIDTH = 100;
+    private static final int BRICK_HEIGHT = 20;
+    private static final int COL_MARGIN = 15;
+    
     ArrayList<RectangleSprite> boxes = new ArrayList<>();
 
     private CircleSprite ball;
@@ -37,14 +38,14 @@ public class BreakoutWorld extends World implements KeyListener {
         bottomPaddle = new RectangleSprite(getWorldWidth()/2, getWorldHeight() - 20, 100, 20, Color.BLUE);
         addSprite(bottomPaddle);
 
-        for(int i = 0; i < ROWS_OF_BOXES; i ++){
-            for(int e = 0; e < COLS_OF_BOXES; e++){
-                RectangleSprite box = new RectangleSprite((getWorldWidth()/COLS_OF_BOXES * e) + (getWorldHeight()/COLS_OF_BOXES)/COLS_OF_BOXES ,boxHeight, BOXWIDTH, BOXHEIGHT, Color.BLACK);
-                addSprite(box);
-                boxes.add(box);
-            }
-            boxHeight -= 30;
-        }
+        // TODO create bricks in a grid here:
+
+        // REQUIREMENTS:
+        // 1. Your code must use the constants above for the number of rows and columns of bricks.
+        // 2. The bricks must all have the same dimensions (use the constants above).
+        // 3. The columns of bricks should be separated by a constant margin (COL_MARGIN)
+        // 4. The rows of bricks should be separated by a margin of one brick-height (BRICK_HEIGHT)
+
     }
 
     /** This method is called by the `TimerListener` for every frame.
@@ -52,9 +53,6 @@ public class BreakoutWorld extends World implements KeyListener {
      *  1. checking for collisions and handling them.
      *  2. moving all sprites by applying their dx and dy (this is done by the superclass's method)
      */
-
-    
-
     public void updateSprites(){
         ArrayList<RectangleSprite> toRemove = new ArrayList<RectangleSprite>();
 
