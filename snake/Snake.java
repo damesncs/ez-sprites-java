@@ -12,7 +12,7 @@ public class Snake {
     public static final int CANVAS_WIDTH = 400;
     public static final int CANVAS_HEIGHT = 400;
 
-    private static final int FRAME_DELAY_MS = 15;
+    private static final int FRAME_DELAY_MS = 100;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

@@ -2,6 +2,12 @@ package snake;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+import breakout.BreakoutWorld;
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -34,6 +40,11 @@ public class SnakeWorld extends World implements KeyListener {
 
     ArrayList<RectangleSprite> snakeSprites = new ArrayList<>();
 
+    public void updateSprites(){
+        moveAndDrawSprites();
+        
+    }
+
     public SnakeWorld(int height, int width){
         super(width, height);
 
@@ -43,12 +54,63 @@ public class SnakeWorld extends World implements KeyListener {
         for(int i = 0; i < SNAKE_START_LENGTH; i++){
             // all snake sprite segments are initially moving up (towards the top edge of the canvas)
             RectangleSprite s = new RectangleSprite(SNAKE_HEAD_START_X, SNAKE_HEAD_START_Y + (i * D), D, D, SNAKE_COLOR);
+            s.setDX(0);
+            s.setDY(-SNAKE_SPEED);
             snakeSprites.add(s);
-            s.setDX();
+            addSprite(s);
         }
-     //   addEventListener("keydown", onKeyEvent);
+        
+        addEventListener("keydown", onKeyEvent);
     }
 
+    public void moveAndDrawSprites(){
+        for(RectangleSprite piece:snakeSprites){
+            piece.setX(piece.getX()+piece.getDX());
+            piece.setY(piece.getY()+piece.getDY());
+        };
+    }
+
+    public void onKeyEvent(e){
+        if(e.code == "ArrowRight"){
+            onKeyEventArrowRight(e.type);
+        } else if (e.code == "ArrowLeft"){
+            onKeyEventArrowLeft(e.type);
+        } else if(e.code =="ArrowUp"){
+            onKeyEventArrowUp(e.type);
+        } else if(e.code =="ArrowDown"){
+            onKeyEventArrowDown(e.type);
+        }
+    }
+    
+    
+    // on arrow key input, change the direction of movement of the first snake segment sprite (the "head")
+    public void onKeyEventArrowLeft(String eventType){
+        if(eventType == EVENT_KEY_PRESSED){
+            snakeSprites.get(0).setDX(-SNAKE_SPEED);
+            snakeSprites.get(0).setDY(0);
+        }
+    }
+    
+    public void onKeyEventArrowRight(String eventType){
+        if(eventType == EVENT_KEY_PRESSED){
+            snakeSprites.get(0).setDX(SNAKE_SPEED);
+            snakeSprites.get(0).setDY(0);
+        }
+    }
+    
+    function onKeyEventArrowUp(eventType){
+        if(eventType === EVENT_KEY_PRESSED){
+            snakeSprites[0].dx = 0;
+            snakeSprites[0].dy = -SNAKE_SPEED;
+        }
+    }
+    
+    function onKeyEventArrowDown(eventType){
+        if(eventType === EVENT_KEY_PRESSED){
+            snakeSprites[0].dx = 0;
+            snakeSprites[0].dy = SNAKE_SPEED;
+        }
+    }
     @Override
     public void keyTyped(KeyEvent e) {
         // TODO Auto-generated method stub
