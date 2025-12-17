@@ -44,6 +44,7 @@ public class TextSprite extends RectangleSprite {
             g.fillRect(getX(), getY(), getWidth(), getHeight());
         }
         g.setFont(font);
+        g.setColor();
         g.drawString(text, getLeftEdge(), getBottomEdge());
     }
 
