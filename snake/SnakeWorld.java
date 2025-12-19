@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import core.RectangleSprite;
 import core.CircleSprite;
 import core.TextSprite;
 import core.World;
@@ -64,6 +63,7 @@ public class SnakeWorld extends World implements KeyListener {
 
     public void updateSprites(){
         
+        // cascade the DX and DY to the following segments each time the head has traveled one diameter
         if(frameCounter % (D / SPEED) == 0){
             head.setDXCascade(nextHeadDX);
             head.setDYCascade(nextHeadDY);
@@ -79,8 +79,6 @@ public class SnakeWorld extends World implements KeyListener {
             // 2. set the tail's `next` to the new segment
             // 3. set `tail` to the new segment 
         }
-
-        // TODO bonus: check if head colliding with any other segment
 
         super.updateSprites(); // this advances all sprite positions one frame
     }
