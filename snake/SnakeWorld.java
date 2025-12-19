@@ -11,7 +11,7 @@ import core.World;
 
 public class SnakeWorld extends World implements KeyListener {
 
-    static final int D = 20;
+    static final int D = 20; // snake segment diameter
     static final int SPEED = 1;
 
     static final int INITIAL_SEGMENTS = 10;
@@ -74,10 +74,13 @@ public class SnakeWorld extends World implements KeyListener {
         if(head.isColliding(food)){
             System.out.println("food get!");
             setFoodToRandomPosition();
-            // TODO add a snake segment
+            // TODO add a snake segment:
+            // 1. initialize a new SnakeSegment
+            // 2. set the tail's `next` to the new segment
+            // 3. set `tail` to the new segment 
         }
 
-        // TODO check if head colliding with any other segment
+        // TODO bonus: check if head colliding with any other segment
 
         super.updateSprites(); // this advances all sprite positions one frame
     }
