@@ -60,7 +60,7 @@ public class SnakeWorld extends World implements KeyListener {
             addSprite(s);
         }
         
-        addEventListener("keydown", onKeyEvent);
+       // addEventListener("keydown", onKeyEvent);
     }
 
     public void moveAndDrawSprites(){
@@ -70,7 +70,7 @@ public class SnakeWorld extends World implements KeyListener {
         };
     }
 
-    public void onKeyEvent(e){
+    /*public void onKeyEvent(e){
         if(e.code == "ArrowRight"){
             onKeyEventArrowRight(e.type);
         } else if (e.code == "ArrowLeft"){
@@ -80,7 +80,7 @@ public class SnakeWorld extends World implements KeyListener {
         } else if(e.code =="ArrowDown"){
             onKeyEventArrowDown(e.type);
         }
-    }
+    }*/
     
     
     // on arrow key input, change the direction of movement of the first snake segment sprite (the "head")
@@ -98,7 +98,7 @@ public class SnakeWorld extends World implements KeyListener {
         }
     }
     
-    function onKeyEventArrowUp(eventType){
+   /*  function onKeyEventArrowUp(eventType){
         if(eventType === EVENT_KEY_PRESSED){
             snakeSprites[0].dx = 0;
             snakeSprites[0].dy = -SNAKE_SPEED;
@@ -109,8 +109,8 @@ public class SnakeWorld extends World implements KeyListener {
         if(eventType === EVENT_KEY_PRESSED){
             snakeSprites[0].dx = 0;
             snakeSprites[0].dy = SNAKE_SPEED;
-        }
-    }
+        }*/
+    //}
     @Override
     public void keyTyped(KeyEvent e) {
         // TODO Auto-generated method stub
