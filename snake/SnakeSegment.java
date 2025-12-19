@@ -2,14 +2,14 @@ package snake;
 
 import java.awt.Color;
 
-import core.RectangleSprite;
+import core.CircleSprite;
 
-public class SnakeSegment extends RectangleSprite {
+public class SnakeSegment extends CircleSprite {
 
     private SnakeSegment next;
 
-    public SnakeSegment(int x, int y, int width, int height, Color color) {
-        super(x, y, width, height, color);
+    public SnakeSegment(int x, int y, int radius, Color color) {
+        super(x, y, radius, color);
     }
 
     public void setNextSegment(SnakeSegment seg){

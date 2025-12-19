@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import core.RectangleSprite;
+import core.CircleSprite;
 import core.TextSprite;
 import core.World;
 
@@ -22,6 +24,8 @@ public class SnakeWorld extends World implements KeyListener {
     SnakeSegment head; // i.e., first segment
     SnakeSegment tail; // i.e., last segment
 
+    CircleSprite food;
+
     TextSprite frames;
 
     public SnakeWorld(int width, int height){
@@ -32,7 +36,7 @@ public class SnakeWorld extends World implements KeyListener {
         // frames = new TextSprite(50, 50, 100, 30, Integer.toString(frameCounter));
         // addSprite(frames);
 
-        head = new SnakeSegment(getWorldWidth() / 2, getWorldHeight() / 2, D, D, Color.BLUE);
+        head = new SnakeSegment(getWorldWidth() / 2, getWorldHeight() / 2, D / 2, Color.BLUE);
         head.setDX(nextHeadDX);
         head.setDY(nextHeadDY);
         addSprite(head);
@@ -41,7 +45,7 @@ public class SnakeWorld extends World implements KeyListener {
         SnakeSegment thisSegment;
 
         for(int i = 0; i < INITIAL_SEGMENTS; i++){
-            thisSegment = new SnakeSegment(head.getX(), head.getY() + (D * i) + D, D, D, Color.ORANGE);
+            thisSegment = new SnakeSegment(head.getX(), head.getY() + (D * i) + D, D / 2, Color.ORANGE);
             thisSegment.setDX(head.getDX());
             thisSegment.setDY(head.getDY());
             addSprite(thisSegment);
@@ -50,7 +54,11 @@ public class SnakeWorld extends World implements KeyListener {
             prevSegment = thisSegment;
             tail = thisSegment;
         }
-        tail.setColor(Color.RED); // for debugging
+        tail.setColor(Color.CYAN); // for debugging
+
+        food = new CircleSprite(0, 0, D / 2, Color.RED);
+        setFoodToRandomPosition();
+        addSprite(food);
 
     }
 
@@ -63,8 +71,24 @@ public class SnakeWorld extends World implements KeyListener {
         frameCounter++;
         // frames.setText(Integer.toString(frameCounter));
         
+        if(head.isColliding(food)){
+            System.out.println("food get!");
+            setFoodToRandomPosition();
+            // TODO add a snake segment
+        }
+
+        // TODO check if head colliding with any other segment
 
         super.updateSprites(); // this advances all sprite positions one frame
+    }
+
+    private void setFoodToRandomPosition(){
+        food.setX(getRandomInt(0, getWorldWidth() - D));
+        food.setY(getRandomInt(0, getWorldHeight() - D));
+    }
+
+    private int getRandomInt(int min, int max){
+        return (int) (Math.random() * (max - min + 1) + min);
     }
     
     public void keyTyped(KeyEvent e) {
