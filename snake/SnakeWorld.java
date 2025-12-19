@@ -10,8 +10,8 @@ import core.World;
 
 public class SnakeWorld extends World implements KeyListener {
 
-    static final int D = 20; // snake segment diameter
-    static final int SPEED = 1;
+    static final int D = 14; // snake segment diameter
+    static final int SPEED = 2;
 
     static final int INITIAL_SEGMENTS = 10;
 
@@ -26,6 +26,8 @@ public class SnakeWorld extends World implements KeyListener {
     CircleSprite food;
 
     TextSprite frames;
+
+    boolean addSegmentOnNextInterval = false;
 
     public SnakeWorld(int width, int height){
         super(width, height);
@@ -67,6 +69,10 @@ public class SnakeWorld extends World implements KeyListener {
         if(frameCounter % (D / SPEED) == 0){
             head.setDXCascade(nextHeadDX);
             head.setDYCascade(nextHeadDY);
+            if(addSegmentOnNextInterval) {
+                addSegmentToTail();
+                addSegmentOnNextInterval = false;
+            }
         }
         frameCounter++;
         // frames.setText(Integer.toString(frameCounter));
@@ -74,13 +80,21 @@ public class SnakeWorld extends World implements KeyListener {
         if(head.isColliding(food)){
             System.out.println("food get!");
             setFoodToRandomPosition();
-            // TODO add a snake segment:
-            // 1. initialize a new SnakeSegment
-            // 2. set the tail's `next` to the new segment
-            // 3. set `tail` to the new segment 
+            addSegmentOnNextInterval = true;
+            
         }
 
+
         super.updateSprites(); // this advances all sprite positions one frame
+    }
+
+    private void addSegmentToTail(){
+        int newSegmentX = tail.getX() + ((-tail.getDX() * D) / D) + tail.getDX();
+        int newSegmentY = tail.getY() + ((-tail.getDY() * D) / D) + tail.getDY();
+        SnakeSegment newSegment = new SnakeSegment(newSegmentX, newSegmentY, D / 2, Color.magenta);
+        addSprite(newSegment);
+        tail.setNextSegment(newSegment);    
+        tail = newSegment;
     }
 
     private void setFoodToRandomPosition(){
