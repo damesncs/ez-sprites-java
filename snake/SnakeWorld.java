@@ -64,7 +64,6 @@ public class SnakeWorld extends World implements KeyListener {
     }
 
     public void updateSprites(){
-        
         // cascade the DX and DY to the following segments each time the head has traveled one diameter
         if(frameCounter % (D / SPEED) == 0){
             head.setDXCascade(nextHeadDX);
@@ -80,26 +79,22 @@ public class SnakeWorld extends World implements KeyListener {
         if(head.isColliding(food)){
             System.out.println("food get!");
             setFoodToRandomPosition();
-            addSegmentOnNextInterval = true;
-            
+            addSegmentOnNextInterval = true;   
         }
-
 
         super.updateSprites(); // this advances all sprite positions one frame
     }
 
     private void addSegmentToTail(){
-        int newSegmentX = tail.getX() + ((-tail.getDX() * D) / D) + tail.getDX();
-        int newSegmentY = tail.getY() + ((-tail.getDY() * D) / D) + tail.getDY();
-        SnakeSegment newSegment = new SnakeSegment(newSegmentX, newSegmentY, D / 2, Color.magenta);
+        SnakeSegment newSegment = new SnakeSegment(tail.getX(), tail.getY(), D / 2, Color.magenta);
         addSprite(newSegment);
         tail.setNextSegment(newSegment);    
         tail = newSegment;
     }
 
     private void setFoodToRandomPosition(){
-        food.setX(getRandomInt(0, getWorldWidth() - D));
-        food.setY(getRandomInt(0, getWorldHeight() - D));
+        food.setX(getRandomInt(D, getWorldWidth() - D));
+        food.setY(getRandomInt(D, getWorldHeight() - D));
     }
 
     private int getRandomInt(int min, int max){
