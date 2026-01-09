@@ -42,6 +42,7 @@ public class SnakeWorld extends World implements KeyListener {
 
     public void updateSprites(){
         moveAndDrawSprites();
+        updateSnakeSpritesMovement();
         
     }
 
@@ -70,63 +71,73 @@ public class SnakeWorld extends World implements KeyListener {
         };
     }
 
-    /*public void onKeyEvent(e){
-        if(e.code == "ArrowRight"){
-            onKeyEventArrowRight(e.type);
-        } else if (e.code == "ArrowLeft"){
-            onKeyEventArrowLeft(e.type);
-        } else if(e.code =="ArrowUp"){
-            onKeyEventArrowUp(e.type);
-        } else if(e.code =="ArrowDown"){
-            onKeyEventArrowDown(e.type);
+    public void updateSnakeSpritesMovement(){
+        for(int i = snakeSprites.size() - 1; i > 0; i--){
+            snakeSprites.get(i) = snakeSprites.get[i-1].dx;
+            snakeSprites[i].dy = snakeSprites[i-1].dy;
         }
-    }*/
+    }
+
+    function updateSnakeSpritesMovement(){
+        for(let i = snakeSprites.length - 1; i > 0; i--){
+            snakeSprites[i].dx = snakeSprites[i-1].dx;
+            snakeSprites[i].dy = snakeSprites[i-1].dy;
+        }
+    }
+
+    public void keyPressed(KeyEvent e){
+        int keyCode = e.getKeyCode();
+        if(keyCode == KeyEvent.VK_RIGHT){
+            onKeyEventArrowRight();
+        } else if (keyCode == KeyEvent.VK_LEFT){
+            onKeyEventArrowLeft();
+        } else if(keyCode == KeyEvent.VK_UP){
+            onKeyEventArrowUp();
+        } else if(keyCode == KeyEvent.VK_DOWN){
+            onKeyEventArrowDown();
+        }
+    }
     
     
     // on arrow key input, change the direction of movement of the first snake segment sprite (the "head")
-    public void onKeyEventArrowLeft(String eventType){
-        if(eventType == EVENT_KEY_PRESSED){
+    public void onKeyEventArrowLeft(){
             snakeSprites.get(0).setDX(-SNAKE_SPEED);
             snakeSprites.get(0).setDY(0);
-        }
     }
     
-    public void onKeyEventArrowRight(String eventType){
-        if(eventType == EVENT_KEY_PRESSED){
+    public void onKeyEventArrowRight(){
             snakeSprites.get(0).setDX(SNAKE_SPEED);
             snakeSprites.get(0).setDY(0);
-        }
+        
     }
     
-   /*  function onKeyEventArrowUp(eventType){
-        if(eventType === EVENT_KEY_PRESSED){
-            snakeSprites[0].dx = 0;
-            snakeSprites[0].dy = -SNAKE_SPEED;
-        }
+    public void onKeyEventArrowUp(){
+        snakeSprites.get(0).setDX(0);
+        snakeSprites.get(0).setDY(-SNAKE_SPEED);
     }
     
-    function onKeyEventArrowDown(eventType){
-        if(eventType === EVENT_KEY_PRESSED){
-            snakeSprites[0].dx = 0;
-            snakeSprites[0].dy = SNAKE_SPEED;
-        }*/
-    //}
+    public void onKeyEventArrowDown(){
+        snakeSprites.get(0).setDX(0);
+        snakeSprites.get(0).setDY(SNAKE_SPEED);
+    }
+    
+    
     @Override
     public void keyTyped(KeyEvent e) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
+        
     }
-
+/* 
     @Override
     public void keyPressed(KeyEvent e) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'keyPressed'");
     }
-
+*/
     @Override
     public void keyReleased(KeyEvent e) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
+        
     }
 
     private int getRandomGridSpaceX(){
