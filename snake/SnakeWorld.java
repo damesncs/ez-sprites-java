@@ -55,7 +55,7 @@ public class SnakeWorld extends World implements KeyListener {
             addSprite(s);
         }
 
-        score = new TextSprite(GRID_COLS, GRID_ROWS, textX , textY, "0");
+        score = new TextSprite(GRID_COLS, GRID_ROWS, textX, textY, "0");
         score.setDrawBkgd(true);
         score.setBkgd(Color.GREEN);
         addSprite(score);
@@ -120,7 +120,7 @@ public class SnakeWorld extends World implements KeyListener {
         addSprite(foodSprite);
 
         numScore = 0;
-        score = new TextSprite(GRID_COLS, GRID_ROWS, textX , textY, String.valueOf(numScore));
+        score = new TextSprite(GRID_COLS, GRID_ROWS, textX, textY, String.valueOf(numScore));
         score.setDrawBkgd(true);
         score.setBkgd(Color.GREEN);
         addSprite(score);
@@ -170,12 +170,10 @@ public class SnakeWorld extends World implements KeyListener {
         snakeSprites.get(0).setDY(SNAKE_SPEED);
     }
     
-    
     @Override
     public void keyTyped(KeyEvent e) {
         // TODO Auto-generated method stub
     }
- 
 
     @Override
     public void keyReleased(KeyEvent e) {
