@@ -13,11 +13,11 @@ public class BreakoutWorld extends World implements KeyListener {
     private static final int BALL_SPEED = 4;
     private static final int PADDLE_SPEED = 6;
 
-    private static final int COLS_OF_BOXES = 6;
-    private static final int ROWS_OF_BOXES = 4;
-    private static final int BOXWIDTH = 100;
-    private static final int BOXHEIGHT = 20;
-    private int boxHeight = getWorldHeight()/2 -50;
+    private static final int BOX_WIDTH = 50;
+    private static final int BOX_HEIGHT = 15;
+    private static final int COL_MARGIN = 20;
+    private static final int ROW_MARGIN = 20;
+    
     ArrayList<RectangleSprite> boxes = new ArrayList<>();
 
     private CircleSprite ball;
@@ -28,22 +28,29 @@ public class BreakoutWorld extends World implements KeyListener {
         super(width, height);
 
         int ballInitialX = getWorldWidth() / 2;
-        int ballInitialY = getWorldHeight() / 2;
-        ball = new CircleSprite(ballInitialX, ballInitialY + 10, 15, Color.RED);
+        int ballInitialY = getWorldHeight() / 2 + 10;
+        ball = new CircleSprite(ballInitialX, ballInitialY, 15, Color.RED);
         ball.setDX(BALL_SPEED );
         ball.setDY(BALL_SPEED);
         addSprite(ball);
 
-        bottomPaddle = new RectangleSprite(getWorldWidth()/2, getWorldHeight() - 20, 100, 20, Color.BLUE);
+        int paddleInitialX = getWorldWidth() / 2;
+        int paddleInitialY = getWorldHeight() - 20;
+        bottomPaddle = new RectangleSprite(paddleInitialX, paddleInitialY, 100, 20, Color.BLUE);
         addSprite(bottomPaddle);
 
-        for(int i = 0; i < ROWS_OF_BOXES; i ++){
-            for(int e = 0; e < COLS_OF_BOXES; e++){
-                RectangleSprite box = new RectangleSprite((getWorldWidth()/COLS_OF_BOXES * e) + (getWorldHeight()/COLS_OF_BOXES)/COLS_OF_BOXES ,boxHeight, BOXWIDTH, BOXHEIGHT, Color.BLACK);
+        // calculate the number of brick rows and columns which can fit
+        int nRows = getWorldHeight() / 3 / (BOX_HEIGHT + ROW_MARGIN);
+        int nCols = getWorldWidth() / (BOX_WIDTH + COL_MARGIN);
+
+        for(int row = 0; row < nRows; row ++){
+            for(int col = 0; col < nCols; col++){
+                int x = col * (BOX_WIDTH + COL_MARGIN) + COL_MARGIN;
+                int y = row * (BOX_HEIGHT + ROW_MARGIN) + ROW_MARGIN;
+                RectangleSprite box = new RectangleSprite(x, y, BOX_WIDTH, BOX_HEIGHT, Color.BLACK);
                 addSprite(box);
                 boxes.add(box);
             }
-            boxHeight -= 30;
         }
     }
 
@@ -52,9 +59,6 @@ public class BreakoutWorld extends World implements KeyListener {
      *  1. checking for collisions and handling them.
      *  2. moving all sprites by applying their dx and dy (this is done by the superclass's method)
      */
-
-    
-
     public void updateSprites(){
         ArrayList<RectangleSprite> toRemove = new ArrayList<RectangleSprite>();
 
@@ -125,28 +129,32 @@ public class BreakoutWorld extends World implements KeyListener {
     }
 
     private boolean circleRectangleTopEdgeAreColliding(CircleSprite c, RectangleSprite r){
-        if (c.getY() <= r.getTopEdge() && c.getRightEdge() >= r.getLeftEdge() && c.getLeftEdge() <= r.getRightEdge()){
+        if (c.getY() <= r.getTopEdge() && c.getRightEdge() >= r.getLeftEdge()
+             && c.getLeftEdge() <= r.getRightEdge()){
             return checkDistanceToPointLessThanRadius(c, c.getX(), r.getTopEdge());
         }
         return false;
     }
     
     private boolean circleRectangleBottomEdgeAreColliding(CircleSprite c, RectangleSprite r){
-        if (c.getY() >= r.getBottomEdge() && c.getRightEdge() >= r.getLeftEdge() && c.getLeftEdge() <= r.getRightEdge()){
+        if (c.getY() >= r.getBottomEdge() && c.getRightEdge() >= r.getLeftEdge()
+             && c.getLeftEdge() <= r.getRightEdge()){
             return checkDistanceToPointLessThanRadius(c, c.getX(), r.getBottomEdge());
         }
         return false;
     }
     
     private boolean circleRectangleRightEdgeAreColliding(CircleSprite c, RectangleSprite r){
-        if (c.getX() >= r.getRightEdge() && c.getBottomEdge() >= r.getTopEdge() && c.getTopEdge() <= r.getBottomEdge()){
+        if (c.getX() >= r.getRightEdge() && c.getBottomEdge() >= r.getTopEdge()
+             && c.getTopEdge() <= r.getBottomEdge()){
             return checkDistanceToPointLessThanRadius(c, r.getRightEdge(), c.getY());
         }
         return false;
     }
     
     private boolean circleRectangleLeftEdgeAreColliding(CircleSprite c, RectangleSprite r){
-        if (c.getX() <= r.getLeftEdge() && c.getBottomEdge() >= r.getTopEdge() && c.getTopEdge() <= r.getBottomEdge()){
+        if (c.getX() <= r.getLeftEdge() && c.getBottomEdge() >= r.getTopEdge()
+             && c.getTopEdge() <= r.getBottomEdge()){
             return checkDistanceToPointLessThanRadius(c, r.getLeftEdge(), c.getY());
         }
         return false;

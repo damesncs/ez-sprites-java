@@ -9,7 +9,7 @@ import core.TimerListener;
 import core.World;
 
 public class Breakout {
-    public static final int CANVAS_WIDTH = 700;
+    public static final int CANVAS_WIDTH = 800;
     public static final int CANVAS_HEIGHT = 500;
 
     private static final int FRAME_DELAY_MS = 15;
@@ -23,7 +23,7 @@ public class Breakout {
     }
     
     private static void createAndShowGUI() {
-        JFrame frame = new JFrame("Pong");
+        JFrame frame = new JFrame("Breakout");
         Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
         
         frame.add(canvas);

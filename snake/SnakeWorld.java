@@ -32,11 +32,6 @@ public class SnakeWorld extends World implements KeyListener {
     public SnakeWorld(int width, int height){
         super(width, height);
 
-        // uncomment this (and the line in updateSprites) to see the frame counter on the canvas:
-
-        // frames = new TextSprite(50, 50, 100, 30, Integer.toString(frameCounter));
-        // addSprite(frames);
-
         head = new SnakeSegment(getWorldWidth() / 2, getWorldHeight() / 2, D / 2, Color.BLUE);
         head.setDX(nextHeadDX);
         head.setDY(nextHeadDY);
@@ -74,7 +69,6 @@ public class SnakeWorld extends World implements KeyListener {
             }
         }
         frameCounter++;
-        // frames.setText(Integer.toString(frameCounter));
         
         if(head.isColliding(food)){
             System.out.println("food get!");
@@ -129,4 +123,3 @@ public class SnakeWorld extends World implements KeyListener {
     }
 
 }
-
