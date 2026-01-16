@@ -34,7 +34,7 @@ public class SnakeWorld extends World implements KeyListener {
     private TextSprite score;
 
     public void updateSprites(){
-        moveAndDrawSprites();
+        super.updateSprites();
         updateSnakeSpritesMovement();
         checkSpriteCollisions();
         
@@ -42,31 +42,10 @@ public class SnakeWorld extends World implements KeyListener {
 
     public SnakeWorld(int height, int width){
         super(height, width);
-
-        foodSprite = new RectangleSprite(getRandomGridSpaceX(), getRandomGridSpaceY(), D, D, FOOD_COLOR);
-        addSprite(foodSprite);
-
-        for(int i = 0; i < SNAKE_START_LENGTH; i++){
-            // all snake sprite segments are initially moving up (towards the top edge of the canvas)
-            RectangleSprite s = new RectangleSprite(SNAKE_HEAD_START_X, SNAKE_HEAD_START_Y + (i * D), D, D, SNAKE_COLOR);
-            s.setDX(0);
-            s.setDY(-SNAKE_SPEED);
-            snakeSprites.add(s);
-            addSprite(s);
-        }
-
-        score = new TextSprite(GRID_COLS, GRID_ROWS, textX, textY, "0");
-        score.setDrawBkgd(true);
-        score.setBkgd(Color.GREEN);
-        addSprite(score);
+        setUpWorld();
     }
 
-    public void moveAndDrawSprites(){
-        for(RectangleSprite piece:snakeSprites){
-            piece.setX(piece.getX()+piece.getDX());
-            piece.setY(piece.getY()+piece.getDY());
-        };
-    }
+   
 
     public void updateSnakeSpritesMovement(){
         for(int i = snakeSprites.size() - 1; i > 0; i--){
@@ -79,7 +58,6 @@ public class SnakeWorld extends World implements KeyListener {
 
     public void checkSpriteCollisions(){
         if(foodSprite.getX() == snakeSprites.get(0).getX() && foodSprite.getY() == snakeSprites.get(0).getY() ){
-
             removeSprite(foodSprite);
             foodSprite = new RectangleSprite(getRandomGridSpaceX(), getRandomGridSpaceY(), D, D, FOOD_COLOR);
             addSprite(foodSprite);
@@ -89,8 +67,8 @@ public class SnakeWorld extends World implements KeyListener {
             int newSpriteY = lastSnakePiece.getY() - lastSnakePiece.getDY();
             RectangleSprite s = new RectangleSprite(newSpriteX, newSpriteY, D, D, SNAKE_COLOR);
 
-            s.setDX(snakeSprites.get(snakeSprites.size()-1).getDX());
-            s.setDY(snakeSprites.get(snakeSprites.size()-1).getDY());
+            s.setDX(lastSnakePiece.getDX());
+            s.setDY(lastSnakePiece.getDY());
             snakeSprites.add(s);
             addSprite(s);
 
@@ -99,14 +77,12 @@ public class SnakeWorld extends World implements KeyListener {
             
         }
 
-        if(snakeSprites.get(0).getX() < 0 || snakeSprites.get(0).getX() >= GRID_COLS *10 ){
+        if(snakeSprites.get(0).getX() < 0 || snakeSprites.get(0).getX() >= Snake.CANVAS_WIDTH ){
             resetWorld();
-            moveAndDrawSprites();
         }
 
-        if(snakeSprites.get(0).getY() < 0 || snakeSprites.get(0).getY() >= GRID_ROWS *10 ){
+        if(snakeSprites.get(0).getY() < 0 || snakeSprites.get(0).getY() >= Snake.CANVAS_HEIGHT){
             resetWorld();
-            moveAndDrawSprites();
         }
     }
 
@@ -116,6 +92,10 @@ public class SnakeWorld extends World implements KeyListener {
         removeSprites(snakeSprites);
         snakeSprites.clear();
 
+        setUpWorld();
+    }
+
+    public void setUpWorld(){
         foodSprite = new RectangleSprite(getRandomGridSpaceX(), getRandomGridSpaceY(), D, D, FOOD_COLOR);
         addSprite(foodSprite);
 
