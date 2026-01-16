@@ -58,4 +58,12 @@ public class RectangleSprite extends Sprite {
         return getY() + height;
     }
 
+    public boolean isColliding(RectangleSprite other){
+        return 
+            this.getRightEdge() > other.getLeftEdge() &&
+            this.getLeftEdge() < other.getRightEdge() &&
+            this.getBottomEdge() > other.getTopEdge() &&
+            this.getTopEdge() < other.getBottomEdge();
+    }
+
 }

@@ -31,6 +31,10 @@ public class CircleSprite extends Sprite {
         this.color = color;
     }
 
+    public Color getColor(){
+        return color;
+    }
+
     public int getRightEdge(){
         return getX() + radius;
     }
@@ -47,4 +51,10 @@ public class CircleSprite extends Sprite {
         return getY() + radius;
     }
 
+    public boolean isColliding(CircleSprite other){
+        // function circleIntersect(x0, y0, r0, x1, y1, r1) {
+        //     return Math.hypot(x0 - x1, y0 - y1) <= r0 + r1;
+        // }
+        return Math.hypot(this.getX() - other.getX(), this.getY() - other.getY()) <= this.getRadius() + other.getRadius();
+    }
 }
