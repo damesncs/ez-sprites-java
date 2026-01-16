@@ -1,4 +1,4 @@
-package snake;
+package snakeLinkedList;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -8,6 +8,11 @@ import core.CircleSprite;
 import core.TextSprite;
 import core.World;
 
+/**
+ * Linked-list 'recursive' implementation of snake.
+ * Challenges:
+ *  - implement checking collisions 
+ */
 public class SnakeWorld extends World implements KeyListener {
 
     static final int D = 14; // snake segment diameter
@@ -21,7 +26,6 @@ public class SnakeWorld extends World implements KeyListener {
     static int frameCounter = 0;
 
     SnakeSegment head; // i.e., first segment
-    SnakeSegment tail; // i.e., last segment
 
     CircleSprite food;
 
@@ -32,31 +36,16 @@ public class SnakeWorld extends World implements KeyListener {
     public SnakeWorld(int width, int height){
         super(width, height);
 
-        head = new SnakeSegment(getWorldWidth() / 2, getWorldHeight() / 2, D / 2, Color.BLUE);
+        head = new SnakeSegment(getWorldWidth() / 2, getWorldHeight() / 2, D / 2, Color.GREEN);
         head.setDX(nextHeadDX);
         head.setDY(nextHeadDY);
         addSprite(head);
 
-        SnakeSegment prevSegment = head;
-        SnakeSegment thisSegment;
-
-        // for(int i = 0; i < INITIAL_SEGMENTS; i++){
-        //     thisSegment = new SnakeSegment(head.getX(), head.getY() + (D * i) + D, D / 2, Color.ORANGE);
-        //     thisSegment.setDX(head.getDX());
-        //     thisSegment.setDY(head.getDY());
-        //     addSprite(thisSegment);
-
-        //     prevSegment.setNextSegment(thisSegment);
-        //     prevSegment = thisSegment;
-        //     tail = thisSegment;
-        // }
-        // tail.setColor(Color.CYAN); // for debugging
-
         for(int i = 0; i < INITIAL_SEGMENTS; i++){
-            addSprite(head.addSegmentToTail(0, (D * i) + D));
+            addSprite(head.addSegmentToTail(0, D, head.getDX(), head.getDY()));
         }
 
-        head.getTail().setColor(Color.PINK);
+        // head.getTail().setColor(Color.PINK); // debugging
 
         food = new CircleSprite(0, 0, D / 2, Color.RED);
         setFoodToRandomPosition();
@@ -81,16 +70,11 @@ public class SnakeWorld extends World implements KeyListener {
             setFoodToRandomPosition();
             addSegmentOnNextInterval = true;   
         }
-
         super.updateSprites(); // this advances all sprite positions one frame
     }
 
     private void addSegmentToTail(){
-        // SnakeSegment newSegment = new SnakeSegment(tail.getX(), tail.getY(), D / 2, Color.magenta);
-        // addSprite(newSegment);
-        // tail.setNextSegment(newSegment);    
-        // tail = newSegment;
-        addSprite(head.addSegmentToTail(0, 0)); // recursive trick
+        addSprite(head.addSegmentToTail(0, 0, 0, 0));
     }
 
     private void setFoodToRandomPosition(){

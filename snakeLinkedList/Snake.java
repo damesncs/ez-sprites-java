@@ -1,4 +1,4 @@
-package snake;
+package snakeLinkedList;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -23,7 +23,7 @@ public class Snake {
     }
     
     private static void createAndShowGUI() {
-        JFrame frame = new JFrame("Snake");
+        JFrame frame = new JFrame("Linked-List Snake");
         Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
         
         frame.add(canvas);
