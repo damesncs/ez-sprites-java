@@ -37,15 +37,12 @@ public class SnakeWorld extends World implements KeyListener {
         super.updateSprites();
         updateSnakeSpritesMovement();
         checkSpriteCollisions();
-        
     }
 
     public SnakeWorld(int height, int width){
         super(height, width);
         setUpWorld();
     }
-
-   
 
     public void updateSnakeSpritesMovement(){
         for(int i = snakeSprites.size() - 1; i > 0; i--){
@@ -77,11 +74,11 @@ public class SnakeWorld extends World implements KeyListener {
             
         }
 
-        if(snakeSprites.get(0).getX() < 0 || snakeSprites.get(0).getX() >= Snake.CANVAS_WIDTH ){
+        if(snakeSprites.get(0).getX() < 0 || snakeSprites.get(0).getX() >= getWorldWidth() ){
             resetWorld();
         }
 
-        if(snakeSprites.get(0).getY() < 0 || snakeSprites.get(0).getY() >= Snake.CANVAS_HEIGHT){
+        if(snakeSprites.get(0).getY() < 0 || snakeSprites.get(0).getY() >= getWorldHeight()){
             resetWorld();
         }
     }
