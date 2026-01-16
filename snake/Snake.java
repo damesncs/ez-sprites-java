@@ -1,4 +1,4 @@
-package breakout;
+package snake;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -8,11 +8,11 @@ import core.Canvas;
 import core.TimerListener;
 import core.World;
 
-public class Breakout {
-    public static final int CANVAS_WIDTH = 700;
-    public static final int CANVAS_HEIGHT = 500;
+public class Snake {
+    public static final int CANVAS_WIDTH = 400;
+    public static final int CANVAS_HEIGHT = 400;
 
-    private static final int FRAME_DELAY_MS = 15;
+    private static final int FRAME_DELAY_MS = 100;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -23,7 +23,7 @@ public class Breakout {
     }
     
     private static void createAndShowGUI() {
-        JFrame frame = new JFrame("Breakout");
+        JFrame frame = new JFrame("Snake");
         Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
         
         frame.add(canvas);
@@ -32,7 +32,7 @@ public class Breakout {
         frame.setFocusable(true);
         frame.setVisible(true);
 
-        BreakoutWorld world = new BreakoutWorld(CANVAS_WIDTH, CANVAS_HEIGHT);
+        SnakeWorld world = new SnakeWorld(CANVAS_WIDTH, CANVAS_HEIGHT);
         frame.addKeyListener(world);
 
         startAnimationLoop(world, canvas);
