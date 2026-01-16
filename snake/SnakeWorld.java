@@ -40,17 +40,23 @@ public class SnakeWorld extends World implements KeyListener {
         SnakeSegment prevSegment = head;
         SnakeSegment thisSegment;
 
-        for(int i = 0; i < INITIAL_SEGMENTS; i++){
-            thisSegment = new SnakeSegment(head.getX(), head.getY() + (D * i) + D, D / 2, Color.ORANGE);
-            thisSegment.setDX(head.getDX());
-            thisSegment.setDY(head.getDY());
-            addSprite(thisSegment);
+        // for(int i = 0; i < INITIAL_SEGMENTS; i++){
+        //     thisSegment = new SnakeSegment(head.getX(), head.getY() + (D * i) + D, D / 2, Color.ORANGE);
+        //     thisSegment.setDX(head.getDX());
+        //     thisSegment.setDY(head.getDY());
+        //     addSprite(thisSegment);
 
-            prevSegment.setNextSegment(thisSegment);
-            prevSegment = thisSegment;
-            tail = thisSegment;
+        //     prevSegment.setNextSegment(thisSegment);
+        //     prevSegment = thisSegment;
+        //     tail = thisSegment;
+        // }
+        // tail.setColor(Color.CYAN); // for debugging
+
+        for(int i = 0; i < INITIAL_SEGMENTS; i++){
+            addSprite(head.addSegmentToTail(0, (D * i) + D));
         }
-        tail.setColor(Color.CYAN); // for debugging
+
+        head.getTail().setColor(Color.PINK);
 
         food = new CircleSprite(0, 0, D / 2, Color.RED);
         setFoodToRandomPosition();
@@ -80,10 +86,11 @@ public class SnakeWorld extends World implements KeyListener {
     }
 
     private void addSegmentToTail(){
-        SnakeSegment newSegment = new SnakeSegment(tail.getX(), tail.getY(), D / 2, Color.magenta);
-        addSprite(newSegment);
-        tail.setNextSegment(newSegment);    
-        tail = newSegment;
+        // SnakeSegment newSegment = new SnakeSegment(tail.getX(), tail.getY(), D / 2, Color.magenta);
+        // addSprite(newSegment);
+        // tail.setNextSegment(newSegment);    
+        // tail = newSegment;
+        addSprite(head.addSegmentToTail(0, 0)); // recursive trick
     }
 
     private void setFoodToRandomPosition(){

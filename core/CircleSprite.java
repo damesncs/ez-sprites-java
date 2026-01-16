@@ -31,6 +31,10 @@ public class CircleSprite extends Sprite {
         this.color = color;
     }
 
+    public Color getColor(){
+        return color;
+    }
+
     public int getRightEdge(){
         return getX() + radius;
     }
