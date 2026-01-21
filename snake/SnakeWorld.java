@@ -99,7 +99,7 @@ public class SnakeWorld extends World implements KeyListener {
         numScore = 0;
         score = new TextSprite(GRID_COLS, GRID_ROWS, textX, textY, String.valueOf(numScore));
         score.setDrawBkgd(true);
-        score.setBkgd(Color.GREEN);
+        score.setBkgdColor(Color.GREEN);
         addSprite(score);
         
         for(int i = 0; i < SNAKE_START_LENGTH; i++){
