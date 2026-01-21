@@ -20,10 +20,10 @@ public class SnakeWorld extends World implements KeyListener {
 
     static final int INITIAL_SEGMENTS = 10;
 
-    static int nextHeadDX = 0;
-    static int nextHeadDY = -SPEED;
+    int nextHeadDX = 0;
+    int nextHeadDY = -SPEED;
     
-    static int frameCounter = 0;
+    int frameCounter = 0;
 
     SnakeSegment head; // i.e., first segment
 
