@@ -29,7 +29,7 @@ public class SnakeSegment extends CircleSprite {
      * @param offsetY the number of pixels to offset the new segment from the tail on Y axis
      * @param dx the new segment's DX
      * @param dy the new segment's DY
-     * @return
+     * @return a reference to the new tail segment
      */
     public SnakeSegment addSegmentToTail(int offsetX, int offsetY, int dx, int dy){
         if(next == null) {

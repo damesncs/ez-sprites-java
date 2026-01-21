@@ -115,10 +115,8 @@ public class BreakoutWorld extends World implements KeyListener {
             ball.setDX(-ball.getDX());
             return true;
 
-    } 
-
-    return false;
-
+        } 
+        return false;
     }
 
     private boolean checkDistanceToPointLessThanRadius(CircleSprite c, int testX, int testY){
