@@ -25,7 +25,7 @@ public class SnakeWorld extends World implements KeyListener {
     
     int frameCounter = 0;
 
-    SnakeSegment head; // i.e., first segment
+    UniformSnakeSegment head; // i.e., first segment
 
     CircleSprite food;
 
@@ -36,7 +36,10 @@ public class SnakeWorld extends World implements KeyListener {
     public SnakeWorld(int width, int height){
         super(width, height);
 
-        head = new SnakeSegment(getWorldWidth() / 2, getWorldHeight() / 2, D / 2, Color.GREEN);
+        UniformSnakeSegment.setRadius(D / 2);
+
+        head = new UniformSnakeSegment(getWorldWidth() / 2, getWorldHeight() / 2);
+        
         head.setDX(nextHeadDX);
         head.setDY(nextHeadDY);
         addSprite(head);
@@ -47,10 +50,9 @@ public class SnakeWorld extends World implements KeyListener {
 
         // head.getTail().setColor(Color.PINK); // debugging
 
-        food = new CircleSprite(0, 0, D / 2, Color.RED);
+        food = new CircleSprite(0, 0, D / 2, getRandomColor());
         setFoodToRandomPosition();
         addSprite(food);
-
     }
 
     public void updateSprites(){
@@ -67,6 +69,7 @@ public class SnakeWorld extends World implements KeyListener {
         
         if(head.isColliding(food)){
             System.out.println("food get!");
+            UniformSnakeSegment.setColor(food.getColor());
             setFoodToRandomPosition();
             addSegmentOnNextInterval = true;   
         }
@@ -80,6 +83,7 @@ public class SnakeWorld extends World implements KeyListener {
     private void setFoodToRandomPosition(){
         food.setX(getRandomInt(D, getWorldWidth() - D));
         food.setY(getRandomInt(D, getWorldHeight() - D));
+        food.setColor(getRandomColor());
     }
 
     private int getRandomInt(int min, int max){
@@ -111,6 +115,13 @@ public class SnakeWorld extends World implements KeyListener {
 
     public void keyReleased(KeyEvent e) {
         // do nothing
+    }
+
+    private Color getRandomColor(){
+        int r = (int) (Math.random() * 256);
+        int g = (int) (Math.random() * 256);
+        int b = (int) (Math.random() * 256);
+        return new Color(r, g, b);
     }
 
 }
