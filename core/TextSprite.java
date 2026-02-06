@@ -13,7 +13,7 @@ public class TextSprite extends RectangleSprite {
     private Color bkgd;
 
     public TextSprite(int x, int y, int width, int height, String text){
-        super(x, y, width, height, null);
+        super(x, y, width, height, Color.black);
         this.text = text;
         this.drawBox = false;
         this.bkgd = Color.WHITE;
@@ -29,12 +29,12 @@ public class TextSprite extends RectangleSprite {
     }
 
     /** Controls whether the bounding box of the sprite should be filled or transparent */
-    public void setDrawBkgd(boolean drawBkgd) {
-        this.drawBox = drawBkgd;
+    public void setDrawBkgd(boolean fillBkgd) {
+        this.drawBox = fillBkgd;
     }
 
     /** Sets the color of the filled bounding box, if it is drawn */
-    public void setBkgd(Color bkgd) {
+    public void setBkgdColor(Color bkgd) {
         this.bkgd = bkgd;
     }
 
@@ -44,6 +44,7 @@ public class TextSprite extends RectangleSprite {
             g.fillRect(getX(), getY(), getWidth(), getHeight());
         }
         g.setFont(font);
+        g.setColor(getColor());
         g.drawString(text, getLeftEdge(), getBottomEdge());
     }
 

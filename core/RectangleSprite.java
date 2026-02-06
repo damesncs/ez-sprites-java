@@ -42,6 +42,10 @@ public class RectangleSprite extends Sprite {
         this.color = color;
     }
 
+    public Color getColor(){
+        return color;
+    }
+
     public int getRightEdge(){
         return getX() + width;
     }
@@ -56,6 +60,14 @@ public class RectangleSprite extends Sprite {
 
     public int getBottomEdge(){
         return getY() + height;
+    }
+
+    public boolean isColliding(RectangleSprite other){
+        return 
+            this.getRightEdge() > other.getLeftEdge() &&
+            this.getLeftEdge() < other.getRightEdge() &&
+            this.getBottomEdge() > other.getTopEdge() &&
+            this.getTopEdge() < other.getBottomEdge();
     }
 
 }
