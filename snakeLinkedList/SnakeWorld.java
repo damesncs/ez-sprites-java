@@ -25,7 +25,7 @@ public class SnakeWorld extends World implements KeyListener {
     
     int frameCounter = 0;
 
-    SnakeSegment head; // i.e., first segment
+    final SnakeSegment head; // i.e., first segment
 
     CircleSprite food;
 
@@ -36,7 +36,7 @@ public class SnakeWorld extends World implements KeyListener {
     public SnakeWorld(int width, int height){
         super(width, height);
 
-        head = new SnakeSegment(getWorldWidth() / 2, getWorldHeight() / 2, D / 2, Color.GREEN);
+        head = new SnakeSegment(getWorldWidth() / 2, getWorldHeight() / 2);
         head.setDX(nextHeadDX);
         head.setDY(nextHeadDY);
         addSprite(head);
@@ -68,7 +68,9 @@ public class SnakeWorld extends World implements KeyListener {
         if(head.isColliding(food)){
             System.out.println("food get!");
             setFoodToRandomPosition();
-            addSegmentOnNextInterval = true;   
+            SnakeSegment.setSnakeColor(Color.red);
+            SnakeSegment.setSnakeRadius(10);
+            addSegmentOnNextInterval = true;
         }
         super.updateSprites(); // this advances all sprite positions one frame
     }

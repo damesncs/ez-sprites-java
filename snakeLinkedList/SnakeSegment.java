@@ -1,6 +1,7 @@
 package snakeLinkedList;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 import core.CircleSprite;
 
@@ -8,8 +9,29 @@ public class SnakeSegment extends CircleSprite {
 
     private SnakeSegment next;
 
-    public SnakeSegment(int x, int y, int radius, Color color) {
+    private static Color color = Color.GREEN;
+    private static int radius = 5;
+
+    // public SnakeSegment(int x, int y, int radius, Color color) {
+    //     super(x, y, radius, color);
+    // }
+
+    public SnakeSegment(int x, int y) {
         super(x, y, radius, color);
+    }
+
+    public static void setSnakeColor(Color c){
+        color = c;
+    }
+
+    public static void setSnakeRadius(int r){
+        radius = r;
+    }
+
+    public void draw(Graphics g){
+        super.setColor(color);
+        super.setRadius(radius);
+        super.draw(g);
     }
 
     /**
@@ -33,7 +55,7 @@ public class SnakeSegment extends CircleSprite {
      */
     public SnakeSegment addSegmentToTail(int offsetX, int offsetY, int dx, int dy){
         if(next == null) {
-            next = new SnakeSegment(getX() + offsetX, getY() + offsetY, getRadius(), getColor());
+            next = new SnakeSegment(getX() + offsetX, getY() + offsetY);
             next.setDX(dx);
             next.setDY(dy);
             return next;
