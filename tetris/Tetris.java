@@ -25,7 +25,7 @@ public class Tetris {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
-                paintComponent(Graphics g);
+           //     paintComponent(Graphics g);
             }
         });
     }

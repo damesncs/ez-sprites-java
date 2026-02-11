@@ -14,6 +14,6 @@ public class LineSprite extends Sprite {
 
 public void draw(Graphics g){
     g.setColor(color);
-    g.fillRect(getX(), getY(), length)
+    //g.fillRect(getX(), getY(), length)
 }
 }
