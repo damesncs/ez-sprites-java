@@ -6,6 +6,7 @@ public class Tetromino {
     
     public static final int D = 20;
 
+    // 7 possible configurations
     public static final int[] I = { 0, 0, 1, 0, 2, 0, 3, 0 };
     public static final int[] O = { 0, 0, 1, 0, 0, 1, 1, 1 };
     public static final int[] T = { 0, 0, 1, 0, 2, 0, 1, 1 };
@@ -24,11 +25,26 @@ public class Tetromino {
                 color);
             squares[i / 2] = s;
         }
-
     }
 
     public SquareSprite[] getSquares(){
         return squares;
+    }
+
+    /* set DX for all square sprites */
+    public void setDX(int dx){
+        // TODO implement
+    }
+
+    /* set DY for all square sprites */
+    public void setDY(int dy){
+        // TODO implement
+    }
+
+
+    /* rotate the tetromino 90 degrees to the right such that all squares are transposed */
+    public void rotateRight(){
+        // TODO implement
     }
 
 }

@@ -15,7 +15,15 @@ public class TetrominoesWorld extends World implements KeyListener {
         for(RectangleSprite s : test.getSquares()){
             addSprite(s);
         }
+
+        // TODO test all configurations
+
+        // TODO setDY() to ensure the squares move together
         
+        // TODO check collisions
+        
+        // TODO keyboard input to rotate tetrominoes
+
     }
 
     @Override
