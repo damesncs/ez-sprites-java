@@ -1,9 +1,12 @@
 package tetrominoes;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 
 public class Tetromino {
-    
+    private int dx;
+    private int dy;
+
     public static final int D = 20;
 
     // 7 possible configurations
@@ -11,6 +14,13 @@ public class Tetromino {
     public static final int[] O = { 0, 0, 1, 0, 0, 1, 1, 1 };
     public static final int[] T = { 0, 0, 1, 0, 2, 0, 1, 1 };
     // TODO J, L, S, Z
+    public static final int[] J = { 1, 0, 1, 1, 1, 2, 0, 2 };
+    public static final int[] L = { 0, 0, 0, 1, 0, 2, 1, 2 };
+    public static final int[] S = { 0, 1, 1, 1, 1, 0, 2, 0 };
+    public static final int[] Z = { 0, 0, 1, 0, 1, 1, 2, 1 };
+
+    public static final int[] I2 = { 1, 1, 2, 1, 3, 1, 0, 1};
+
 
     private SquareSprite[] squares;
 
@@ -32,19 +42,30 @@ public class Tetromino {
     }
 
     /* set DX for all square sprites */
-    public void setDX(int dx){
-        // TODO implement
+    public void setDX(Tetromino block, int dx){
+       
+       SquareSprite[] squares = block.getSquares();
+       for(int i = 0; i < squares.length; i ++){
+            squares[0].setDX(dx);
+       }
     }
+    
+
 
     /* set DY for all square sprites */
-    public void setDY(int dy){
-        // TODO implement
-    }
+    public void setDY(Tetromino block, int dy){
+       
+        SquareSprite[] squares = block.getSquares();
+        for(int i = 0; i < squares.length; i ++){
+             squares[0].setDY(dy);
+        }
+     }
 
 
     /* rotate the tetromino 90 degrees to the right such that all squares are transposed */
-    public void rotateRight(){
+    public void rotateRight(SquareSprite[] squares){
         // TODO implement
+        squares[0].getX();
     }
 
 }
