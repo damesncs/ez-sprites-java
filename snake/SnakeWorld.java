@@ -10,8 +10,6 @@ import core.RectangleSprite;
 import core.TextSprite;
 import core.World;
 
-
-
 public class SnakeWorld extends World implements KeyListener {
     private static final int D = 10; // grid square dimension in pixels
 

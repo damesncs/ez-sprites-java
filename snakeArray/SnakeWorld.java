@@ -1,0 +1,124 @@
+package snakeArray;
+
+import java.util.ArrayList;
+
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import core.RectangleSprite;
+import core.TextSprite;
+import core.World;
+
+public class SnakeWorld extends World implements KeyListener {
+    private static final int D = 10; // grid square dimension in pixels
+
+    private static final int GRID_ROWS = 400 / D;
+    private static final int GRID_COLS = 400 / D;
+
+    private static final int SNAKE_START_LENGTH = 10;
+    private static final int SNAKE_HEAD_START_X = (int) (GRID_COLS / 2) * D; // snake starts with head in the middle
+    private static final int SNAKE_HEAD_START_Y = (int) (GRID_ROWS / 2) * D;
+    private static final Color SNAKE_COLOR = Color.green;
+    private static final Color FOOD_COLOR = Color.red;
+    private static final int SNAKE_SPEED = D; // move one grid space each frame
+
+    private RectangleSprite foodSprite;
+    RectangleSprite[] snakeSprites;
+
+    private static final int textX = 1;
+    private static final int textY = 1;
+    public int numScore = 0;
+    private TextSprite score;
+
+    public void updateSprites(){
+        super.updateSprites();
+        updateSnakeSpritesMovement();
+        checkSpriteCollisions();
+    }
+
+    public SnakeWorld(int height, int width){
+        super(height, width);
+        setupWorld();
+    }
+
+    public void updateSnakeSpritesMovement(){
+        // TODO implement
+    }
+
+    public void checkSpriteCollisions(){
+        // TODO if snake head is colliding with the food:
+        //      1. move the food somewhere else randomly (use getRandomGridSpaceX() etc.)
+        //      2. add a segment to the snake
+        //      3. update the score
+
+        // TODO if the snake is going off of the canvas, call resetWorld()
+    }
+
+    public void resetWorld(){
+        removeSprite(foodSprite);
+        removeSprite(score);
+        // TODO reset snake to original length and position
+
+        setupWorld();
+    }
+
+    public void setupWorld(){
+        foodSprite = new RectangleSprite(getRandomGridSpaceX(), getRandomGridSpaceY(), D, D, FOOD_COLOR);
+        addSprite(foodSprite);
+
+        numScore = 0;
+        score = new TextSprite(GRID_COLS, GRID_ROWS, textX, textY, String.valueOf(numScore));
+        score.setDrawBkgd(true);
+        score.setBkgdColor(Color.GREEN);
+        addSprite(score);
+        
+       // TODO create snake segments (n = SNAKE_START_LENGTH) and add them to the snakeSprites array
+    }
+
+    public void keyPressed(KeyEvent e){
+        int keyCode = e.getKeyCode();
+        if(keyCode == KeyEvent.VK_RIGHT){
+            onKeyEventArrowRight();
+        } else if (keyCode == KeyEvent.VK_LEFT){
+            onKeyEventArrowLeft();
+        } else if(keyCode == KeyEvent.VK_UP){
+            onKeyEventArrowUp();
+        } else if(keyCode == KeyEvent.VK_DOWN){
+            onKeyEventArrowDown();
+        }
+    }
+    
+    // on arrow key input, change the direction of movement of the first snake segment sprite (the "head")
+    public void onKeyEventArrowLeft(){
+        // TODO implement
+    }
+    
+    public void onKeyEventArrowRight(){
+        // TODO implement
+    }
+    
+    public void onKeyEventArrowUp(){
+        // TODO implement
+    }
+    
+    public void onKeyEventArrowDown(){
+       // TODO implement
+    }
+    
+    public void keyTyped(KeyEvent e) {
+       // do nothing
+    }
+
+    public void keyReleased(KeyEvent e) {
+        // do nothing
+    }
+
+    private int getRandomGridSpaceX(){
+        return (int)(Math.random() * GRID_COLS) * D;
+    }
+
+    private int getRandomGridSpaceY(){
+        return (int)(Math.random() * GRID_ROWS) * D;
+    }
+}
