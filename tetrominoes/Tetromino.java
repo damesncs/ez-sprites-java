@@ -20,21 +20,34 @@ public class Tetromino {
     public static final int[] Z = { 0, 0, 1, 0, 1, 1, 2, 1 };
 
     public static final int[] I2 = { 1, 1, 2, 1, 3, 1, 0, 1};
-
+    public static final int[] I3 = { 0, 0, 0 ,1 , 0, 2, 0, 3};
+    public static final int[] T2 = { 0, 0, 0, 1, 0, 2, 1, 1 };
+    public static final int[] T3 = { 0, 0, 0, 1, 0, 2, 1, 1 };
 
     private SquareSprite[] squares;
 
     public Tetromino(int[] configuration, int x, int y, Color color){
         squares = new SquareSprite[4];
 
-        for(int i = 0; i < configuration.length; i += 2){
-            SquareSprite s = new SquareSprite(
-                x + (configuration[i] * D),
-                y + (configuration[i + 1] * D),
-                D,
-                color);
-            squares[i / 2] = s;
-        }
+       /*  if(mirrored){
+            for(int i = 0; i < configuration.length; i += 2){
+                SquareSprite s = new SquareSprite(
+                    x - (configuration[i] * D),
+                    y - (configuration[i + 1] * D),
+                    D,
+                    color);
+                squares[i / 2] = s;
+                }
+        }else{*/
+            for(int i = 0; i < configuration.length; i += 2){
+                SquareSprite s = new SquareSprite(
+                    x + (configuration[i] * D),
+                    y + (configuration[i + 1] * D),
+                    D,
+                    color);
+                squares[i / 2] = s;
+            }
+       // }
     }
 
     public SquareSprite[] getSquares(){
@@ -66,6 +79,17 @@ public class Tetromino {
     public void rotateRight(SquareSprite[] squares){
         // TODO implement
         squares[0].getX();
+    }
+
+    public void mirror(int[] configuration, int x, int y){
+        for(int i = 0; i < squares.length; i ++){
+            SquareSprite s = new SquareSprite(
+                x - (configuration[i] * D),
+                y - (configuration[i + 1] * D),
+                D,
+                squares[i].getColor());
+            squares[i] = s;
+        }
     }
 
 }
