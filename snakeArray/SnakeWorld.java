@@ -43,14 +43,12 @@ public class SnakeWorld extends World implements KeyListener {
     }
 
     public void updateSnakeSpritesMovement(){
-        System.out.println("updateSnakeSpritesMovement");
         for(int i = snakeSprites.length - 1; i > 0; i--){
             int dx = snakeSprites[i - 1].getDX();
             snakeSprites[i].setDX(dx);
             int dy = snakeSprites[i - 1].getDY();
             snakeSprites[i].setDY(dy);
         }
-
     }
 
     public void checkSpriteCollisions(){
@@ -58,6 +56,15 @@ public class SnakeWorld extends World implements KeyListener {
         //      1. move the food somewhere else randomly (use getRandomGridSpaceX() etc.)
         //      2. add a segment to the snake
         //      3. update the score
+        
+        if(snakeSprites[0].getX() == foodSprite.getX() &&
+            snakeSprites[0].getY() == foodSprite.getY()){
+                addSegmentToTail();
+                numScore++;
+                score.setText(Integer.toString(numScore));
+                foodSprite.setX(getRandomGridSpaceX());
+                foodSprite.setY(getRandomGridSpaceY());
+        }
 
         // TODO if the snake is going off of the canvas, call resetWorld()
     }
@@ -71,7 +78,6 @@ public class SnakeWorld extends World implements KeyListener {
     }
 
     public void setupWorld(){
-        System.out.println("setupWorld");
         foodSprite = new RectangleSprite(getRandomGridSpaceX(), getRandomGridSpaceY(), D, D, FOOD_COLOR);
         addSprite(foodSprite);
 
@@ -94,6 +100,18 @@ public class SnakeWorld extends World implements KeyListener {
        }
 
 
+    }
+
+    private void addSegmentToTail(){
+        RectangleSprite[] newSnake = new RectangleSprite[snakeSprites.length + 1];
+        for(int i = 0; i < snakeSprites.length; i++){
+            newSnake[i] = snakeSprites[i];
+        }
+        snakeSprites = newSnake;
+        RectangleSprite tail = snakeSprites[snakeSprites.length - 2];
+        RectangleSprite newSegment = new RectangleSprite(tail.getX(), tail.getY(), D, D, Color.orange);
+        addSprite(newSegment);
+        snakeSprites[snakeSprites.length - 1] = newSegment;
     }
 
     public void keyPressed(KeyEvent e){
