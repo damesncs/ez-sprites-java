@@ -43,7 +43,14 @@ public class SnakeWorld extends World implements KeyListener {
     }
 
     public void updateSnakeSpritesMovement(){
-        // TODO implement
+        System.out.println("updateSnakeSpritesMovement");
+        for(int i = snakeSprites.length - 1; i > 0; i--){
+            int dx = snakeSprites[i - 1].getDX();
+            snakeSprites[i].setDX(dx);
+            int dy = snakeSprites[i - 1].getDY();
+            snakeSprites[i].setDY(dy);
+        }
+
     }
 
     public void checkSpriteCollisions(){
@@ -64,6 +71,7 @@ public class SnakeWorld extends World implements KeyListener {
     }
 
     public void setupWorld(){
+        System.out.println("setupWorld");
         foodSprite = new RectangleSprite(getRandomGridSpaceX(), getRandomGridSpaceY(), D, D, FOOD_COLOR);
         addSprite(foodSprite);
 
@@ -74,6 +82,18 @@ public class SnakeWorld extends World implements KeyListener {
         addSprite(score);
         
        // TODO create snake segments (n = SNAKE_START_LENGTH) and add them to the snakeSprites array
+    
+       snakeSprites = new RectangleSprite[SNAKE_START_LENGTH];
+       for(int i = 0; i < snakeSprites.length; i++){
+            int segmentX = SNAKE_HEAD_START_X;
+            int segmentY = SNAKE_HEAD_START_Y + (i * D);
+            RectangleSprite newSegment = new RectangleSprite(segmentX, segmentY, D, D, SNAKE_COLOR);
+            snakeSprites[i] = newSegment;
+            addSprite(newSegment);
+            newSegment.setDY(-SNAKE_SPEED);
+       }
+
+
     }
 
     public void keyPressed(KeyEvent e){
@@ -91,19 +111,23 @@ public class SnakeWorld extends World implements KeyListener {
     
     // on arrow key input, change the direction of movement of the first snake segment sprite (the "head")
     public void onKeyEventArrowLeft(){
-        // TODO implement
+        snakeSprites[0].setDX(-SNAKE_SPEED);
+        snakeSprites[0].setDY(0);
     }
     
     public void onKeyEventArrowRight(){
-        // TODO implement
+        snakeSprites[0].setDX(SNAKE_SPEED);
+        snakeSprites[0].setDY(0);
     }
     
     public void onKeyEventArrowUp(){
-        // TODO implement
+        snakeSprites[0].setDX(0);
+        snakeSprites[0].setDY(-SNAKE_SPEED);
     }
     
     public void onKeyEventArrowDown(){
-       // TODO implement
+        snakeSprites[0].setDX(0);
+        snakeSprites[0].setDY(SNAKE_SPEED);
     }
     
     public void keyTyped(KeyEvent e) {
