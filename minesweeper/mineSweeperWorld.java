@@ -1,7 +1,6 @@
 package minesweeper;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -9,19 +8,20 @@ import core.CellSprite;
 import core.World;
 
 public class mineSweeperWorld extends World implements MouseListener{
-    private static final int D = 20;
-    Graphics g;
-
+   // private static final int D = 20;
+   int numCells = 10;
     public mineSweeperWorld(int height, int width){
         super(height, width);
         setUpWorld();
+       // int numCells = 100;
     }
 
     public void setUpWorld(){
-        CellSprite[][] cells = new CellSprite[getWorldHeight()/D][getWorldWidth()/D];
+        int D = getWorldWidth()/numCells;
+        CellSprite[][] cells = new CellSprite[numCells][numCells];
         for(int i = 0; i < cells.length; i++){
             for(int j = 0; j < cells[i].length; j++){
-                CellSprite individualCell = new CellSprite(getWorldHeight()/D*i, getWorldWidth()/D*j, D, Color.MAGENTA);
+                CellSprite individualCell = new CellSprite(D*i, D*j, D, Color.MAGENTA);
                 addSprite(individualCell);
             }
         }
