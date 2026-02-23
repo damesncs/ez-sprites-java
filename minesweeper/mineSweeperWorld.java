@@ -9,7 +9,7 @@ import core.World;
 
 public class mineSweeperWorld extends World implements MouseListener{
    // private static final int D = 20;
-   int numCells = 10;
+   int numCellsPerAxis = 15;
     public mineSweeperWorld(int height, int width){
         super(height, width);
         setUpWorld();
@@ -17,11 +17,11 @@ public class mineSweeperWorld extends World implements MouseListener{
     }
 
     public void setUpWorld(){
-        int D = getWorldWidth()/numCells;
-        CellSprite[][] cells = new CellSprite[numCells][numCells];
+        int D = getWorldWidth()/numCellsPerAxis;
+        CellSprite[][] cells = new CellSprite[numCellsPerAxis][numCellsPerAxis];
         for(int i = 0; i < cells.length; i++){
             for(int j = 0; j < cells[i].length; j++){
-                CellSprite individualCell = new CellSprite(D*i, D*j, D, Color.MAGENTA);
+                CellSprite individualCell = new CellSprite(D*i, D*j, D, Color.WHITE, "123");
                 addSprite(individualCell);
             }
         }

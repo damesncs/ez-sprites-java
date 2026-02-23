@@ -1,10 +1,13 @@
 package core;
+
 import java.awt.Color;
 import java.awt.Graphics;
 
 public class CellSprite extends RectangleSprite{
-    public CellSprite(int x, int y, int d, Color color){
+    private String text;
+    public CellSprite(int x, int y, int d, Color color, String Text){
         super(x,y, d, d, color);
+        this.text = Text;
     }
     
     /* draw with outline */
@@ -13,7 +16,10 @@ public class CellSprite extends RectangleSprite{
         g.fillRect(getX(), getY(), getWidth(), getHeight());
         g.setColor(Color.BLACK);
         g.drawRect(getX(), getY(), getWidth(), getHeight());
+        g.drawString(text, getLeftEdge(), getBottomEdge());
     }
+
+
 
 }
 
