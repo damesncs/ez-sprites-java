@@ -102,11 +102,21 @@ public class SnakeWorld extends World implements KeyListener {
 
     }
 
+    // 1. initialize a new array (newSegments) that's one bigger than the old one
+    // 2. copy all of the references to the sprites to the new array (for loop)
+    // 3. set snakeSprites = newArray
+    // 4. create a new segment and assign snakeSprites[snakeSprites.length - 1]
+
     private void addSegmentToTail(){
         RectangleSprite[] newSnake = new RectangleSprite[snakeSprites.length + 1];
         for(int i = 0; i < snakeSprites.length; i++){
             newSnake[i] = snakeSprites[i];
         }
+        // int i = 0;
+        // for(RectangleSprite s : snakeSprites){
+        //     newSnake[i] = s;
+        //     i++;
+        // }
         snakeSprites = newSnake;
         RectangleSprite tail = snakeSprites[snakeSprites.length - 2];
         RectangleSprite newSegment = new RectangleSprite(tail.getX(), tail.getY(), D, D, Color.orange);
