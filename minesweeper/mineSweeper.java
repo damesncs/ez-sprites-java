@@ -13,6 +13,7 @@ public class mineSweeper {
     public static final int CANVAS_HEIGHT = 400;
 
     private static final int FRAME_DELAY_MS = 100;
+    
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -31,8 +32,10 @@ public class mineSweeper {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setFocusable(true);
         frame.setVisible(true);
+        int offsetY = frame.getContentPane().getHeight();
 
-        mineSweeperWorld world = new mineSweeperWorld(CANVAS_WIDTH, CANVAS_HEIGHT);
+        
+        mineSweeperWorld world = new mineSweeperWorld(CANVAS_WIDTH, CANVAS_HEIGHT, offsetY);
         frame.addMouseListener(world);
 
         startAnimationLoop(world, canvas);

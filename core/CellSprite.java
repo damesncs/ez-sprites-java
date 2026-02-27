@@ -5,9 +5,24 @@ import java.awt.Graphics;
 
 public class CellSprite extends RectangleSprite{
     private String text;
+    private String value;
+
+    public static final String MINE = "M";
+    public static final String EMPTY = "E";
+    public static final String Opened = "O";
+
     public CellSprite(int x, int y, int d, Color color, String Text){
         super(x,y, d, d, color);
         this.text = Text;
+        this.value = EMPTY;
+    }
+
+    public void changeToMine(){
+        this.value = MINE;
+    }
+
+    public void showValue(){
+        text = value;
     }
     
     /* draw with outline */
