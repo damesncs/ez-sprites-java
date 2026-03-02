@@ -24,7 +24,7 @@ public class mineSweeper {
     }
     
     private static void createAndShowGUI() {
-        JFrame frame = new JFrame("Snake");
+        JFrame frame = new JFrame("Mine Sweeper");
         Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
         
         frame.add(canvas);
@@ -36,7 +36,7 @@ public class mineSweeper {
 
         
         mineSweeperWorld world = new mineSweeperWorld(CANVAS_WIDTH, CANVAS_HEIGHT, offsetY);
-        frame.addMouseListener(world);
+        canvas.addMouseListener(world);
 
         startAnimationLoop(world, canvas);
     }

@@ -21,9 +21,14 @@ public class CellSprite extends RectangleSprite{
         this.value = MINE;
     }
 
+    public String getValue(){
+        return this.value;
+    }
+
     public void showValue(){
         text = value;
     }
+
     
     /* draw with outline */
     public void draw(Graphics g){
