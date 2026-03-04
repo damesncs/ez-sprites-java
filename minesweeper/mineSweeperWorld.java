@@ -6,7 +6,6 @@ import java.awt.event.MouseListener;
 
 import core.CellSprite;
 import core.World;
-//import java.util.Random;
 
 public class mineSweeperWorld extends World implements MouseListener{
     private static final int NUM_MINES = 40;
@@ -37,8 +36,6 @@ public class mineSweeperWorld extends World implements MouseListener{
     }
 
     public void assignMines(){
-        //Random randomCell;
-       
 
         for(int i = 0; i <= NUM_MINES; i ++){
             int rowMine = (int) (Math.random()*numCellsPerAxis);
@@ -49,9 +46,9 @@ public class mineSweeperWorld extends World implements MouseListener{
            System.out.println(colMine);
         }
 
-        showMineValues();
+       // showCellValues(); //uncomment to show all cell values at the start
     }
-    public void showMineValues(){
+    public void showCellValues(){
         for(int i = 0; i < cells.length; i ++){
             for(int j = 0; j < cells[i].length; j++){
                 cells[i][j].showValue();
@@ -62,7 +59,6 @@ public class mineSweeperWorld extends World implements MouseListener{
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
         if(firstMouseClick){
             firstMouseClick = false;
         }
@@ -79,19 +75,19 @@ public class mineSweeperWorld extends World implements MouseListener{
 
     private void handleCellClick(int row, int col){
         CellSprite clickedCell = cells[row][col];
-
+        clickedCell.showValue();
         if(clickedCell.getValue() == "M"){
             cells[row][col].setColor(Color.RED);
             System.out.println("Game over");
         }else{
             cells[row][col].setColor(Color.GREEN);
             System.out.println("empty cell");
-            uncoverCells(row, col);
+            //uncoverCells(row, col);
         }
     }
 
     private void uncoverCells(int row, int col){
-        if()
+      
     }
 
     @Override
