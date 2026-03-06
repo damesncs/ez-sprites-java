@@ -10,6 +10,7 @@ public class CellSprite extends RectangleSprite{
     public static final String MINE = "M";
     public static final String EMPTY = "E";
     public static final String Opened = "O";
+    public int cellNumber = 0;
 
     public CellSprite(int x, int y, int d, Color color, String Text){
         super(x,y, d, d, color);
@@ -27,6 +28,17 @@ public class CellSprite extends RectangleSprite{
 
     public void showValue(){
         text = value;
+    }
+
+    public int getCellNumber(){
+        return cellNumber;
+    }
+    public void showCellNumber(){
+        text = value + " " + cellNumber;
+    }
+
+    public void changeCellNumber(int num){
+        cellNumber = num;
     }
 
     

@@ -32,6 +32,7 @@ public class mineSweeperWorld extends World implements MouseListener{
             }
         }
         assignMines();
+        assignCellNumber();
         
     }
 
@@ -46,7 +47,7 @@ public class mineSweeperWorld extends World implements MouseListener{
            System.out.println(colMine);
         }
 
-       // showCellValues(); //uncomment to show all cell values at the start
+        showCellValues(); //uncomment to show all cell values at the start
     }
     public void showCellValues(){
         for(int i = 0; i < cells.length; i ++){
@@ -56,26 +57,79 @@ public class mineSweeperWorld extends World implements MouseListener{
         }
     }
 
+    public void assignCellNumber(){
+        
+        for(int i = 0; i < cells.length; i++){
+            for(int j = 0; j < cells[i].length; j ++){
+                if(cells[i][j].getValue() == "M"){
+                    continue;
+                }
+
+                int mineCounter = 0;
+                for(int r = -1; r <= 1; r++){
+                    for(int c = -1; c <= 1; c++){
+                        int adjacentRow = r + i;
+                        int adjacentCol = c + j;
+
+                        if(adjacentRow >= 0 && adjacentRow < cells.length && adjacentCol >= 0 && adjacentCol < cells[i].length){
+                            if(cells[adjacentRow][adjacentCol].getValue() == "M"){
+                                mineCounter++;
+                            }
+                        }
+                    }
+                }
+                cells[i][j].changeCellNumber(mineCounter);
+                cells[i][j].showCellNumber();
+            }
+        }
+    }
+
+    public void unveilZeroCells(int row, int col){
+                for(int r = -1; r <= 1; r++){
+                    for(int c = -1; c <= 1; c++){
+                        int adjacentRow = r + row;
+                        int adjacentCol = c + col;
+
+                        if(adjacentRow >= 0 && adjacentRow < cells.length && adjacentCol >= 0 && adjacentCol < cells[row].length ){
+                            if(cells[adjacentRow][adjacentCol].getCellNumber() == 0){
+                                System.out.println(cells[adjacentRow][adjacentCol].getCellNumber());
+                                
+                               handleCellClick(adjacentRow, adjacentCol);
+                               unveilZeroCells(adjacentRow, adjacentCol);
+                            
+                            }
+                        }
+                    }
+                }
+        
+              //  cells[i][j].changeCellNumber(mineCounter);
+              //  cells[i][j].showCellNumber();
+            
+        
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO Auto-generated method stub
-        if(firstMouseClick){
-            firstMouseClick = false;
-        }
+        
         double xMouse = e.getX();
         double yMouse = e.getY();
         int xIndex = (int)xMouse/D;
         int yIndex = (int)yMouse/D;
-        System.out.println(xIndex);
-        System.out.println(yIndex);
+     //   System.out.println(xIndex);
+      //  System.out.println(yIndex);
 
         handleCellClick(xIndex, yIndex);
-
+        if(firstMouseClick){
+            firstMouseClick = false;
+            unveilZeroCells(xIndex, yIndex);
+        }
     }
 
     private void handleCellClick(int row, int col){
         CellSprite clickedCell = cells[row][col];
         clickedCell.showValue();
+        clickedCell.showCellNumber();
         if(clickedCell.getValue() == "M"){
             cells[row][col].setColor(Color.RED);
             System.out.println("Game over");
