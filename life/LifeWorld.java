@@ -8,12 +8,12 @@ import java.util.ArrayList;
 
 public class LifeWorld extends World {
 
-    Color LIVE_COLOR = Color.white;
-    Color DEAD_COLOR = Color.black;
+    Color liveColor = Color.white;
+    Color deadColor = Color.black;
 
-    int D;
-    int ROWS;
-    int COLS;
+    int d;
+    int rows;
+    int cols;
 
     int RIGHT_EDGE;
     int BOTTOM_EDGE;
@@ -22,17 +22,17 @@ public class LifeWorld extends World {
 
     ArrayList<RectangleSprite> gridSprites; // the rectangles drawn on the canvas
 
-    public LifeWorld(int width, int height, int d) {
+    public LifeWorld(int width, int height, int cellDimension) {
         super(width, height);
-        D = d;
-        ROWS = height / D;
-        COLS = width / D;
-        RIGHT_EDGE = COLS - 1;
-        BOTTOM_EDGE = ROWS - 1;
+        d = cellDimension;
+        rows = height / d;
+        cols = width / d;
+        RIGHT_EDGE = cols - 1;
+        BOTTOM_EDGE = rows - 1;
 
-        gridSprites = new ArrayList<RectangleSprite>(ROWS * COLS);
+        gridSprites = new ArrayList<RectangleSprite>(rows * cols);
 
-        cells = new boolean[ROWS][COLS];
+        cells = new boolean[rows][cols];
 
         // initial setup - the "R-pentomino"
         cells[49][50] = true;
@@ -46,16 +46,16 @@ public class LifeWorld extends World {
     }
 
     public void updateSprites(){
-        // super.updateSprites(); // not using Sprite's dx and dy,fields so this is not necessary
+        // super.updateSprites(); // not using Sprite's dx and dy fields so this is not necessary
         cells = getNextGeneration();
         setSpritesFromCells();
     }
 
     private boolean[][] getNextGeneration(){
-        boolean[][] newGrid = new boolean[ROWS][COLS];
+        boolean[][] newGrid = new boolean[rows][cols];
       
-        for(int row = 0; row < ROWS; row++){
-            for(int col = 0; col < COLS; col++){
+        for(int row = 0; row < rows; row++){
+            for(int col = 0; col < cols; col++){
                 // for each cell
                 // count neighbors
                 int neighbors = 0;
@@ -96,18 +96,19 @@ public class LifeWorld extends World {
     private void setSpritesFromCells(){
         for(int r = 0; r < cells.length; r++){
             for(int c = 0; c < cells[r].length; c++){
-                Color color = DEAD_COLOR;
-                if(cells[r][c]) color = LIVE_COLOR;
+                Color color = deadColor;
+                if(cells[r][c]) color = liveColor;
                 RectangleSprite rs = gridSprites.get(r * cells[r].length + c);
                 rs.setColor(color);
             }
         }
     }
 
+    // create rectangles to represent cells
     private void initSprites(){
         for(int r = 0; r < cells.length; r++){
             for(int c = 0; c < cells[r].length; c++){
-                RectangleSprite s = new RectangleSprite(r * D, c * D, D, D, DEAD_COLOR);
+                RectangleSprite s = new RectangleSprite(r * d, c * d, d, d, deadColor);
                 gridSprites.add(s);
                 addSprite(s);
             }
