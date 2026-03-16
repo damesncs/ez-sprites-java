@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 public class LifeWorld extends World {
 
+    Color LIVE_COLOR = Color.white;
+    Color DEAD_COLOR = Color.black;
+
     int D;
     int ROWS;
     int COLS;
@@ -15,9 +18,9 @@ public class LifeWorld extends World {
     int RIGHT_EDGE;
     int BOTTOM_EDGE;
 
-    boolean[][] cells;
+    boolean[][] cells; // the cell values
 
-    ArrayList<RectangleSprite> gridSprites;
+    ArrayList<RectangleSprite> gridSprites; // the rectangles drawn on the canvas
 
     public LifeWorld(int width, int height, int d) {
         super(width, height);
@@ -44,15 +47,15 @@ public class LifeWorld extends World {
 
     public void updateSprites(){
         // super.updateSprites(); // not using Sprite's dx and dy,fields so this is not necessary
-        getNextGeneration();
+        cells = getNextGeneration();
         setSpritesFromCells();
     }
 
-    private void getNextGeneration(){
+    private boolean[][] getNextGeneration(){
         boolean[][] newGrid = new boolean[ROWS][COLS];
       
-          for(int row = 0; row < ROWS; row++){
-              for(int col = 0; col < COLS; col++){
+        for(int row = 0; row < ROWS; row++){
+            for(int col = 0; col < COLS; col++){
                 // for each cell
                 // count neighbors
                 int neighbors = 0;
@@ -84,17 +87,17 @@ public class LifeWorld extends World {
 
                 if(neighbors == 2 && cells[row][col]) newGrid[row][col] = true;
                 else if(neighbors == 3) newGrid[row][col] = true;
-              }
-          }
-          // replace the old grid
-          cells = newGrid;
+            }
+        }
+        return newGrid;
     }
 
+    // update the colors of the rectangles from the cell values
     private void setSpritesFromCells(){
         for(int r = 0; r < cells.length; r++){
             for(int c = 0; c < cells[r].length; c++){
-                Color color = Color.white;
-                if(cells[r][c]) color = Color.black;
+                Color color = DEAD_COLOR;
+                if(cells[r][c]) color = LIVE_COLOR;
                 RectangleSprite rs = gridSprites.get(r * cells[r].length + c);
                 rs.setColor(color);
             }
@@ -104,7 +107,7 @@ public class LifeWorld extends World {
     private void initSprites(){
         for(int r = 0; r < cells.length; r++){
             for(int c = 0; c < cells[r].length; c++){
-                RectangleSprite s = new RectangleSprite(r * D, c * D, D, D, Color.WHITE);
+                RectangleSprite s = new RectangleSprite(r * D, c * D, D, D, DEAD_COLOR);
                 gridSprites.add(s);
                 addSprite(s);
             }
