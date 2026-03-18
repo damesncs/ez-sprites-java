@@ -62,6 +62,7 @@ public class mineSweeperWorld extends World implements MouseListener{
         for(int i = 0; i < cells.length; i++){
             for(int j = 0; j < cells[i].length; j ++){
                 if(cells[i][j].getValue() == "M"){
+                    cells[i][j].changeCellNumber(8);//all mines are changed to zero
                     continue;
                 }
 
@@ -78,6 +79,9 @@ public class mineSweeperWorld extends World implements MouseListener{
                         }
                     }
                 }
+               // if(mineCounter == 0){
+                  //  mineCounter = 8;// all zero mines are now changed to
+               // }
                 cells[i][j].changeCellNumber(mineCounter);
                 cells[i][j].showCellNumber();
             }
@@ -91,9 +95,9 @@ public class mineSweeperWorld extends World implements MouseListener{
                         int adjacentCol = c + col;
 
                         if(adjacentRow >= 0 && adjacentRow < cells.length && adjacentCol >= 0 && adjacentCol < cells[row].length ){
-                            if(cells[adjacentRow][adjacentCol].getCellNumber() == 0){
+                            if(cells[adjacentRow][adjacentCol].getCellNumber() == 0 && cells[adjacentRow][adjacentCol].getValue() != "Mine"){
                                 System.out.println(cells[adjacentRow][adjacentCol].getCellNumber());
-                                
+                                cells[adjacentRow][adjacentCol].changeCellNumber(9);// changes the number to 9 in order to prevent the recursive function from visting the same cell twice
                                handleCellClick(adjacentRow, adjacentCol);
                                unveilZeroCells(adjacentRow, adjacentCol);
                             
@@ -120,10 +124,11 @@ public class mineSweeperWorld extends World implements MouseListener{
       //  System.out.println(yIndex);
 
         handleCellClick(xIndex, yIndex);
-        if(firstMouseClick){
+        unveilZeroCells(xIndex, yIndex);
+        /*if(firstMouseClick){
             firstMouseClick = false;
             unveilZeroCells(xIndex, yIndex);
-        }
+        }*/
     }
 
     private void handleCellClick(int row, int col){
