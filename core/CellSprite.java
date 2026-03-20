@@ -10,6 +10,7 @@ public class CellSprite extends RectangleSprite{
     public static final String MINE = "M";
     public static final String EMPTY = "E";
     public static final String Opened = "O";
+    public static final String FLAGGED = "F";
     public int cellNumber = 0;
 
     public CellSprite(int x, int y, int d, Color color, String Text){
@@ -20,6 +21,14 @@ public class CellSprite extends RectangleSprite{
 
     public void changeToMine(){
         this.value = MINE;
+    }
+
+    public boolean isMine(){
+        return this.value.equals(CellSprite.MINE);
+    }
+
+    public boolean isEmpty(){
+        return this.value.equals(CellSprite.EMPTY);
     }
 
     public String getValue(){
@@ -39,6 +48,13 @@ public class CellSprite extends RectangleSprite{
 
     public void changeCellNumber(int num){
         cellNumber = num;
+    }
+
+    public String getCellText(){
+        return this.text;
+    }
+    public void changeCellText(String text){
+        this.text = text;
     }
 
     
