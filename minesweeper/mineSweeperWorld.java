@@ -10,11 +10,13 @@ import core.CellSprite;
 import core.World;
 
 public class mineSweeperWorld extends World implements MouseListener{
-    private static final int NUM_MINES = 40;
+    private static final int NUM_MINES = 5;
     int numCellsPerAxis = 15;
     int D = getWorldWidth()/numCellsPerAxis;
     int headerPixels;
     boolean firstMouseClick = true;
+    int numOfUserFlags = 0;
+    
 
    CellSprite[][] cells = new CellSprite[numCellsPerAxis][numCellsPerAxis];
     public mineSweeperWorld(int height, int width, int offsetY){
@@ -41,13 +43,13 @@ public class mineSweeperWorld extends World implements MouseListener{
 
     public void assignMines(){
 
-        for(int i = 0; i <= NUM_MINES; i ++){
+        for(int i = 0; i < NUM_MINES; i ++){
             int rowMine = (int) (Math.random()*numCellsPerAxis);
             int colMine = (int) (Math.random()*numCellsPerAxis);
            System.out.println(cells[rowMine][colMine]); 
            cells[rowMine][colMine].changeToMine();
-           System.out.println(rowMine);
-           System.out.println(colMine);
+           //System.out.println(rowMine);
+          // System.out.println(colMine);
         }
 
     }
@@ -124,14 +126,15 @@ public class mineSweeperWorld extends World implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        
         double xMouse = e.getX();
         double yMouse = e.getY();
         int xIndex = (int)xMouse/D;
         int yIndex = (int)yMouse/D;
-    
+        int numOfUserFlags = 0;
+
         if(SwingUtilities.isRightMouseButton(e)){
             handleRightMouseClick(xIndex, yIndex);
+
         }else{
             handleLeftCellClick(xIndex, yIndex);
             unveilZeroCells(xIndex, yIndex);
@@ -139,7 +142,20 @@ public class mineSweeperWorld extends World implements MouseListener{
         
   
     }
-
+    private boolean checkGameWin(){
+        int numCorrect = 0;
+        for(int i = 0; i < cells.length; i++){
+            for(int j = 0; j < cells[i].length; j ++){
+                if(cells[i][j].getCellText().equals("F") && cells[i][j].getValue().equals("Mine")){
+                    numCorrect++;
+                }
+            }
+        }
+        if(numCorrect == NUM_MINES){
+            return true;
+        }
+        return false;
+    }
     private void handleLeftCellClick(int row, int col){
         CellSprite clickedCell = cells[row][col];
         clickedCell.showValue();
@@ -156,11 +172,28 @@ public class mineSweeperWorld extends World implements MouseListener{
 
     private void handleRightMouseClick(int row, int col){
         CellSprite clickedCell = cells[row][col];
+        
+        numOfUserFlags++;
+        System.out.println(numOfUserFlags);
+
         if(clickedCell.getCellText().equals("F")){
+            numOfUserFlags--;
             clickedCell.changeCellText(" ");
+        }
+
+        if(numOfUserFlags > NUM_MINES){
+            System.out.println("Max number of flags reached");
+            numOfUserFlags - 2;
+        
         }else{
             clickedCell.changeCellText("F");
+        } 
+        if(numOfUserFlags == NUM_MINES){
+            if(checkGameWin()){
+                System.out.println("YOU WIN!");
+            }
         }
+
     }
 
 
