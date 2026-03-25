@@ -10,7 +10,7 @@ import core.CellSprite;
 import core.World;
 
 public class mineSweeperWorld extends World implements MouseListener{
-    private static final int NUM_MINES = 5;
+    private static final int NUM_MINES = 40;
     int numCellsPerAxis = 15;
     int D = getWorldWidth()/numCellsPerAxis;
     int headerPixels;
@@ -37,7 +37,7 @@ public class mineSweeperWorld extends World implements MouseListener{
         }
         assignMines();
         assignCellNumber();
-       // showCellValues(); //uncomment to show all cell values at the start
+        //showCellValues(); //uncomment to show all cell values at the start
         
     }
 
@@ -46,10 +46,11 @@ public class mineSweeperWorld extends World implements MouseListener{
         for(int i = 0; i < NUM_MINES; i ++){
             int rowMine = (int) (Math.random()*numCellsPerAxis);
             int colMine = (int) (Math.random()*numCellsPerAxis);
-           System.out.println(cells[rowMine][colMine]); 
-           cells[rowMine][colMine].changeToMine();
-           //System.out.println(rowMine);
-          // System.out.println(colMine);
+            if(cells[rowMine][colMine].getValue().equals("M")){
+                i--;
+            }else{
+                cells[rowMine][colMine].changeToMine();
+            }
         }
 
     }
@@ -111,7 +112,6 @@ public class mineSweeperWorld extends World implements MouseListener{
 
                         if(adjacentRow >= 0 && adjacentRow < cells.length && adjacentCol >= 0 && adjacentCol < cells[row].length ){
                             if(cells[adjacentRow][adjacentCol].getCellNumber() == 0 && cells[adjacentRow][adjacentCol].getValue() != "Mine"){
-                                System.out.println(cells[adjacentRow][adjacentCol].getCellNumber());
                                 cells[adjacentRow][adjacentCol].changeCellNumber(9);// changes the number to 9 in order to prevent the recursive method from visting the same cell twice
                                unveilSurroundingCells(adjacentRow, adjacentCol);
                                handleLeftCellClick(adjacentRow, adjacentCol);
@@ -130,7 +130,6 @@ public class mineSweeperWorld extends World implements MouseListener{
         double yMouse = e.getY();
         int xIndex = (int)xMouse/D;
         int yIndex = (int)yMouse/D;
-        int numOfUserFlags = 0;
 
         if(SwingUtilities.isRightMouseButton(e)){
             handleRightMouseClick(xIndex, yIndex);
@@ -146,8 +145,9 @@ public class mineSweeperWorld extends World implements MouseListener{
         int numCorrect = 0;
         for(int i = 0; i < cells.length; i++){
             for(int j = 0; j < cells[i].length; j ++){
-                if(cells[i][j].getCellText().equals("F") && cells[i][j].getValue().equals("Mine")){
+                if(cells[i][j].getCellText().equals("F") && cells[i][j].getValue().equals("M")){
                     numCorrect++;
+                    System.out.println("correct flag");
                 }
             }
         }
@@ -166,34 +166,36 @@ public class mineSweeperWorld extends World implements MouseListener{
             showCellValues();
         }else{
             cells[row][col].setColor(Color.GREEN);
-            System.out.println("empty cell");
         }
     }
 
     private void handleRightMouseClick(int row, int col){
         CellSprite clickedCell = cells[row][col];
-        
-        numOfUserFlags++;
-        System.out.println(numOfUserFlags);
 
         if(clickedCell.getCellText().equals("F")){
-            numOfUserFlags--;
             clickedCell.changeCellText(" ");
-        }
-
-        if(numOfUserFlags > NUM_MINES){
+            clickedCell.setColor(Color.gray);
+            int flagsLeft = NUM_MINES-numOfUserFlags+1;
+            System.out.println("Flags left:" + flagsLeft);
+            numOfUserFlags--;
+        }else if(numOfUserFlags >= NUM_MINES){
             System.out.println("Max number of flags reached");
-            numOfUserFlags - 2;
-        
         }else{
             clickedCell.changeCellText("F");
+            clickedCell.setColor(Color.yellow);
+            int flagsLeft = NUM_MINES-numOfUserFlags-1;
+            System.out.println("Flags left:" + flagsLeft);
+            numOfUserFlags++;
         } 
         if(numOfUserFlags == NUM_MINES){
+            System.out.println("Checking game win");
             if(checkGameWin()){
                 System.out.println("YOU WIN!");
             }
         }
 
+
+        
     }
 
 
