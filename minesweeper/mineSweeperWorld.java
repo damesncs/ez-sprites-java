@@ -33,7 +33,7 @@ public class mineSweeperWorld extends World implements MouseListener{
         }
         assignMines();
         assignCellNumber();
-        //showCellValues(); //uncomment to show all cell values at the start
+        showCellValues(); //comment to hide all cell values at the start
     }
 
     public void assignMines(){
@@ -47,7 +47,7 @@ public class mineSweeperWorld extends World implements MouseListener{
 
         
     }
-    
+
     public void showCellValues(){
         for(int i = 0; i < cells.length; i ++){
             for(int j = 0; j < cells[i].length; j++){
