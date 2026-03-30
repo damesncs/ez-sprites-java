@@ -3,14 +3,12 @@ package minesweeper;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.SwingUtilities;
-
 import core.CellSprite;
 import core.World;
 
 public class mineSweeperWorld extends World implements MouseListener{
-    private static final int NUM_MINES = 40;
+    private static final int NUM_MINES = 40; //Variable for the number of mines on the map
     int numCellsPerAxis = 15;
     int D = getWorldWidth()/numCellsPerAxis;
     int headerPixels;
@@ -23,11 +21,9 @@ public class mineSweeperWorld extends World implements MouseListener{
         super(height, width);
         setUpWorld();
         headerPixels = offsetY;
-       
     }
 
     public void setUpWorld(){
-        
         for(int i = 0; i < cells.length; i++){
             for(int j = 0; j < cells[i].length; j++){
                 CellSprite individualCell = new CellSprite(D*i, D*j, D, Color.GRAY, "");
@@ -38,30 +34,18 @@ public class mineSweeperWorld extends World implements MouseListener{
         assignMines();
         assignCellNumber();
         //showCellValues(); //uncomment to show all cell values at the start
-        
     }
 
     public void assignMines(){
+        // TODO Generate mines in random places in the minesweeper grid
+        // The variable for the number of mines you will place, NUM_MINES, is already defined at the top
+        // P.S. You will need Math.random() in order to generate random numbers and a for loop
 
 
 
 
 
-
-
-
-
-        //Comment
-        for(int i = 0; i < NUM_MINES; i ++){
-            int rowMine = (int) (Math.random()*numCellsPerAxis);
-            int colMine = (int) (Math.random()*numCellsPerAxis);
-            if(cells[rowMine][colMine].getValue().equals("M")){
-                i--;
-            }else{
-                cells[rowMine][colMine].changeToMine();
-            }
-        }
-
+        
     }
     public void showCellValues(){
         for(int i = 0; i < cells.length; i ++){
@@ -73,14 +57,12 @@ public class mineSweeperWorld extends World implements MouseListener{
     }
 
     public void assignCellNumber(){
-        
         for(int i = 0; i < cells.length; i++){
             for(int j = 0; j < cells[i].length; j ++){
                 if(cells[i][j].isMine()){
                     cells[i][j].changeCellNumber(8);//all mines are changed to zero
                     continue;
                 }
-
                 int mineCounter = 0;
                 for(int r = -1; r <= 1; r++){
                     for(int c = -1; c <= 1; c++){
