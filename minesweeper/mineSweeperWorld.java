@@ -40,6 +40,7 @@ public class mineSweeperWorld extends World implements MouseListener{
         // TODO Generate mines in random places in the minesweeper grid
         // The variable for the number of mines you will place, NUM_MINES, is already defined at the top
         // P.S. You will need Math.random() in order to generate random numbers and a for loop
+        // P.P.S You will also need to call the changeToMine() method on CellSprite
 
 
 
